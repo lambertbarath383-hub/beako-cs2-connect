@@ -19,28 +19,38 @@
 <body>
 <main>
   <span class="tag">BEAKO MANAGER · CS2</span>
-  <h1>Csatlakozás a szerverhez</h1>
-  <p>Válaszd ki, melyik CS2-szerverre szeretnél csatlakozni. A gomb a Steam megnyitását fogja kérni.</p>
-  <section class="server">
-    <h2>Fő CS2-szerver</h2>
-    <p class="ip">212.73.137.7:27914</p>
-    <a class="btn" href="steam://connect/212.73.137.7:27914"><span class="icon">↗</span> Steam megnyitása és csatlakozás</a>
-    <br><button type="button" onclick="copyCommand('connect 212.73.137.7:27914')">CS2 konzolparancs másolása</button>
-  </section>
-  <section class="server">
-    <h2>Másodlagos CS2-szerver</h2>
-    <p class="ip">212.73.137.40:27381</p>
-    <a class="btn" href="steam://connect/212.73.137.40:27381"><span class="icon">↗</span> Steam megnyitása és csatlakozás</a>
-    <br><button type="button" onclick="copyCommand('connect 212.73.137.40:27381')">CS2 konzolparancs másolása</button>
+  <h1 id="pageTitle">Csatlakozás a szerverhez</h1>
+  <p id="intro">A gomb megnyitja a Steamet, és megpróbál csatlakozni a kiválasztott CS2-szerverhez.</p>
+  <section class="server" id="serverCard">
+    <h2 id="serverName">CS2-szerver</h2>
+    <p class="ip" id="serverAddress"></p>
+    <a class="btn" id="steamLink" href="#"><span class="icon">↗</span> Steam megnyitása és csatlakozás</a>
+    <br><button type="button" id="copyButton">CS2 konzolparancs másolása</button>
   </section>
   <p class="note">Ha a böngésző engedélyt kér a Steam megnyitására, válaszd a megnyitást. Ha nem indul el a játék, másold a konzolparancsot a CS2 fejlesztői konzoljába.</p>
   <footer>Az oldal nem kér be Steam-jelszót vagy fiókadatot.</footer>
 </main>
 <script>
-async function copyCommand(command){
+const params = new URLSearchParams(location.search);
+const secondary = params.get('server') === 'secondary';
+const defaults = secondary ? {ip:'212.73.137.40',port:'27381'} : {ip:'212.73.137.7',port:'27914'};
+// The Discord bot supplies the active panel's IP and port. Validate them before use.
+const rawIp = params.get('ip') || defaults.ip;
+const rawPort = params.get('port') || defaults.port;
+const ip = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(rawIp) ? rawIp : defaults.ip;
+const portNumber = Number(rawPort);
+const port = Number.isInteger(portNumber) && portNumber > 0 && portNumber <= 65535 ? String(portNumber) : defaults.port;
+const address = `${ip}:${port}`;
+const command = `connect ${address}`;
+document.title = `${secondary ? 'Másodlagos' : 'Fő'} CS2 – Csatlakozás`;
+document.getElementById('pageTitle').textContent = secondary ? 'Csatlakozás a másodlagos szerverhez' : 'Csatlakozás a fő szerverhez';
+document.getElementById('serverName').textContent = secondary ? 'Másodlagos CS2-szerver' : 'Fő CS2-szerver';
+document.getElementById('serverAddress').textContent = address;
+document.getElementById('steamLink').href = `steam://connect/${address}`;
+document.getElementById('copyButton').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(command); alert('A CS2 parancs a vágólapra másolva.'); }
   catch(e) { prompt('Másold ki ezt a parancsot:', command); }
-}
+});
 </script>
 </body>
 </html>
