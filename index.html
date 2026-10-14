@@ -20,11 +20,11 @@
 <main>
   <span class="tag">BEAKO MANAGER · CS2</span>
   <h1 id="pageTitle">Csatlakozás a szerverhez</h1>
-  <p id="intro">A gomb megnyitja a Steamet, és megpróbál csatlakozni a kiválasztott CS2-szerverhez.</p>
+  <p id="intro">A Steam-csatlakozás automatikusan elindul. Ha a böngésző engedélyt kér, hagyd jóvá a Steam megnyitását.</p>
   <section class="server" id="serverCard">
     <h2 id="serverName">CS2-szerver</h2>
     <p class="ip" id="serverAddress"></p>
-    <a class="btn" id="steamLink" href="#"><span class="icon">↗</span> Steam megnyitása és csatlakozás</a>
+    <a class="btn" id="steamLink" href="#"><span class="icon">↗</span> Újrapróbálás / Steam megnyitása</a>
     <br><button type="button" id="copyButton">CS2 konzolparancs másolása</button>
   </section>
   <p class="note">Ha a böngésző engedélyt kér a Steam megnyitására, válaszd a megnyitást. Ha nem indul el a játék, másold a konzolparancsot a CS2 fejlesztői konzoljába.</p>
@@ -46,7 +46,14 @@ document.title = `${secondary ? 'Másodlagos' : 'Fő'} CS2 – Csatlakozás`;
 document.getElementById('pageTitle').textContent = secondary ? 'Csatlakozás a másodlagos szerverhez' : 'Csatlakozás a fő szerverhez';
 document.getElementById('serverName').textContent = secondary ? 'Másodlagos CS2-szerver' : 'Fő CS2-szerver';
 document.getElementById('serverAddress').textContent = address;
-document.getElementById('steamLink').href = `steam://connect/${address}`;
+const steamUrl = `steam://connect/${address}`;
+const steamLink = document.getElementById('steamLink');
+steamLink.href = steamUrl;
+// Auto-launch is attempted after the user deliberately clicked the Discord URL button.
+// Browsers may still require confirmation for external application protocols.
+window.addEventListener('load', () => {
+  setTimeout(() => { window.location.href = steamUrl; }, 250);
+});
 document.getElementById('copyButton').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(command); alert('A CS2 parancs a vágólapra másolva.'); }
   catch(e) { prompt('Másold ki ezt a parancsot:', command); }
