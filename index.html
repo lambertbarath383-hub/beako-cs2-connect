@@ -20,44 +20,51 @@
 <main>
   <span class="tag">BEAKO MANAGER · CS2</span>
   <h1 id="pageTitle">Csatlakozás a szerverhez</h1>
-  <p id="intro">A Steam-csatlakozás automatikusan elindul. Ha a böngésző engedélyt kér, hagyd jóvá a Steam megnyitását.</p>
+  <p id="intro">A Discord-panelből kiválasztott szerverhez próbálunk csatlakozni. Ha a böngésző engedélyt kér, hagyd jóvá a Steam megnyitását.</p>
   <section class="server" id="serverCard">
     <h2 id="serverName">CS2-szerver</h2>
     <p class="ip" id="serverAddress"></p>
-    <a class="btn" id="steamLink" href="#"><span class="icon">↗</span> Újrapróbálás / Steam megnyitása</a>
+    <a class="btn" id="steamLink" href="#"><span class="icon">↗</span> Steam megnyitása / újrapróbálás</a>
     <br><button type="button" id="copyButton">CS2 konzolparancs másolása</button>
   </section>
-  <p class="note">Ha a böngésző engedélyt kér a Steam megnyitására, válaszd a megnyitást. Ha nem indul el a játék, másold a konzolparancsot a CS2 fejlesztői konzoljába.</p>
+  <p class="note">A fő- és másodlagos panel külön hivatkozást használ. Ha a böngésző blokkolja az automatikus indítást, kattints a Steam megnyitása gombra. A Steam engedélykérését a böngésző szabályozza.</p>
   <footer>Az oldal nem kér be Steam-jelszót vagy fiókadatot.</footer>
 </main>
 <script>
-const params = new URLSearchParams(location.search);
-const secondary = params.get('server') === 'secondary';
-const defaults = secondary ? {ip:'212.73.137.40',port:'27381'} : {ip:'212.73.137.7',port:'27914'};
-// The Discord bot supplies the active panel's IP and port. Validate them before use.
-const rawIp = params.get('ip') || defaults.ip;
-const rawPort = params.get('port') || defaults.port;
-const ip = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(rawIp) ? rawIp : defaults.ip;
-const portNumber = Number(rawPort);
-const port = Number.isInteger(portNumber) && portNumber > 0 && portNumber <= 65535 ? String(portNumber) : defaults.port;
-const address = `${ip}:${port}`;
-const command = `connect ${address}`;
-document.title = `${secondary ? 'Másodlagos' : 'Fő'} CS2 – Csatlakozás`;
-document.getElementById('pageTitle').textContent = secondary ? 'Csatlakozás a másodlagos szerverhez' : 'Csatlakozás a fő szerverhez';
-document.getElementById('serverName').textContent = secondary ? 'Másodlagos CS2-szerver' : 'Fő CS2-szerver';
-document.getElementById('serverAddress').textContent = address;
-const steamUrl = `steam://connect/${address}`;
-const steamLink = document.getElementById('steamLink');
-steamLink.href = steamUrl;
-// Auto-launch is attempted after the user deliberately clicked the Discord URL button.
-// Browsers may still require confirmation for external application protocols.
-window.addEventListener('load', () => {
-  setTimeout(() => { window.location.href = steamUrl; }, 250);
-});
-document.getElementById('copyButton').addEventListener('click', async () => {
-  try { await navigator.clipboard.writeText(command); alert('A CS2 parancs a vágólapra másolva.'); }
-  catch(e) { prompt('Másold ki ezt a parancsot:', command); }
-});
+(() => {
+  const params = new URLSearchParams(window.location.search);
+  const serverKey = (params.get('server') || 'main').toLowerCase() === 'secondary' ? 'secondary' : 'main';
+  const secondary = serverKey === 'secondary';
+  const defaults = secondary ? {ip:'212.73.137.40',port:'27381'} : {ip:'212.73.137.7',port:'27914'};
+  const rawIp = (params.get('ip') || defaults.ip).trim();
+  const rawPort = (params.get('port') || defaults.port).trim();
+  const validIp = /^(?:\d{1,3}\.){3}\d{1,3}$/.test(rawIp) && rawIp.split('.').every(n => Number(n) >= 0 && Number(n) <= 255);
+  const portNum = Number(rawPort);
+  const ip = validIp ? rawIp : defaults.ip;
+  const port = Number.isInteger(portNum) && portNum > 0 && portNum <= 65535 ? String(portNum) : defaults.port;
+  const address = `${ip}:${port}`;
+  const steamUrl = `steam://connect/${address}`;
+  const command = `connect ${address}`;
+
+  document.title = `${secondary ? 'Másodlagos' : 'Fő'} CS2 – Csatlakozás`;
+  document.getElementById('pageTitle').textContent = secondary ? 'Csatlakozás a másodlagos szerverhez' : 'Csatlakozás a fő szerverhez';
+  document.getElementById('serverName').textContent = secondary ? 'Másodlagos CS2-szerver' : 'Fő CS2-szerver';
+  document.getElementById('serverAddress').textContent = address;
+  const steamLink = document.getElementById('steamLink');
+  steamLink.href = steamUrl;
+  steamLink.addEventListener('click', () => { document.getElementById('intro').textContent = 'Steam megnyitásának kérése… Ha a böngésző engedélyt kér, hagyd jóvá.'; });
+
+  // A Discord-panelre kattintás egy felhasználói művelet; az oldal az adott szerverre
+  // automatikus indítást próbál, de a böngésző/Steam engedélykérését nem kerülheti meg.
+  window.addEventListener('load', () => {
+    window.setTimeout(() => { window.location.assign(steamUrl); }, 350);
+  });
+
+  document.getElementById('copyButton').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(command); alert('A CS2 parancs a vágólapra másolva.'); }
+    catch { window.prompt('Másold ki ezt a parancsot a CS2 konzoljába:', command); }
+  });
+})();
 </script>
 </body>
 </html>
