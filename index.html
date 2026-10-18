@@ -1,39 +1,50 @@
 <!doctype html>
 <html lang="hu">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171923">
-<title>Beako Manager – CS2 csatlakozás</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171923">
+<title>Beako · CS2 szerverek</title>
 <style>
-:root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#292d42 0,#171923 58%);color:#f4f5fb;display:grid;place-items:center;padding:22px}main{width:min(100%,680px);background:#222532;border:1px solid #3a3f53;border-radius:18px;padding:28px;box-shadow:0 20px 70px #0005}.tag{display:inline-block;background:#343a55;color:#cdd5ff;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:700;letter-spacing:.04em}h1{font-size:clamp(24px,5vw,34px);margin:16px 0 8px}p{color:#c5c9d8;line-height:1.55}.servers{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:20px}.server{padding:18px;border:1px solid #41465d;border-radius:13px;background:#292d3d}.server h2{font-size:18px;margin:0 0 8px}.ip{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#dce1ff;margin:0 0 15px;overflow-wrap:anywhere}a.btn,button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:10px;padding:12px 15px;font-weight:750;font-size:14px;text-decoration:none;cursor:pointer}a.btn{background:#6478ff;color:white}a.btn:hover{background:#7889ff}button{background:#3b4054;color:#f3f4fb;margin-top:10px}button:hover{background:#4b516a}.selected{border-color:#6478ff;box-shadow:0 0 0 1px #6478ff55}.note{font-size:13px;margin:16px 0 0;color:#9ea5bc}footer{font-size:12px;color:#8991aa;margin-top:22px;text-align:center}.status{font-size:13px;color:#aeb8ff;min-height:20px}
-</style></head><body><main>
-<span class="tag">BEAKO MANAGER · CS2</span><h1 id="pageTitle">Csatlakozás a CS2-szerverhez</h1>
-<p id="intro">A Discord-panel kiválasztja a megfelelő szervert. Az oldal megpróbálja megnyitni a Steamet; ha a böngésző engedélyt kér, hagyd jóvá.</p>
+:root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#171923;color:#f4f5fb}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at top,#292d42 0,#171923 62%)}main{width:min(100%,560px);padding:24px;background:#222532;border:1px solid #3a3f53;border-radius:18px;box-shadow:0 20px 70px #0005}.brand{font-size:12px;font-weight:800;letter-spacing:.07em;color:#cbd3ff}.servers{display:grid;gap:12px;margin-top:20px}.server{padding:17px;border:1px solid #41465d;border-radius:13px;background:#292d3d}.server.active{border-color:#6478ff;box-shadow:0 0 0 1px #6478ff55}h1{font-size:25px;margin:10px 0 0}h2{font-size:17px;margin:0 0 10px}.address{font:14px ui-monospace,SFMono-Regular,Consolas,monospace;color:#dce1ff;overflow-wrap:anywhere;margin:0 0 14px}.actions{display:flex;gap:8px;flex-wrap:wrap}a,button{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px 13px;border:0;border-radius:9px;font-size:13px;font-weight:750;text-decoration:none;cursor:pointer}a{background:#6478ff;color:white}a:hover{background:#7889ff}button{background:#3b4054;color:#f3f4fb}button:hover{background:#4b516a}#status{min-height:18px;color:#aeb8ff;font-size:12px;margin:14px 0 0}@media(max-width:420px){main{padding:17px}.actions>*{flex:1}}
+</style>
+</head>
+<body><main>
+<div class="brand">BEAKO MANAGER · CS2</div>
+<h1>Szerverek</h1>
 <div class="servers">
-<section class="server" id="mainCard"><h2>Fő CS2-szerver</h2><p class="ip" id="mainAddress">—</p><a class="btn" id="mainLink" href="#">↗ Csatlakozás a fő szerverhez</a><br><button type="button" id="mainCopy">CS2 konzolparancs másolása</button></section>
-<section class="server" id="secondaryCard"><h2>Másodlagos CS2-szerver</h2><p class="ip" id="secondaryAddress">—</p><a class="btn" id="secondaryLink" href="#">↗ Csatlakozás a másodlagoshoz</a><br><button type="button" id="secondaryCopy">CS2 konzolparancs másolása</button></section>
-</div><p class="status" id="status" aria-live="polite"></p><p class="note">Ha az automatikus indítást a böngésző blokkolja, kattints a megfelelő Steam-gombra. A Steam engedélykérését a böngésző szabályozza.</p><footer>Az oldal nem kér Steam-fiókjelszót. Ha a szerverjelszót a Discord-link átadja, az a linkben látható lehet.</footer>
-</main><script>
+<section class="server" id="mainCard">
+<h2>Fő szerver</h2><p class="address" id="mainAddress">212.73.137.7:27914</p>
+<div class="actions"><a id="mainConnect" href="steam://connect/212.73.137.7:27914">Csatlakozás</a><button id="mainCopy" type="button">IP másolása</button></div>
+</section>
+<section class="server" id="secondaryCard">
+<h2>Másodlagos szerver</h2><p class="address" id="secondaryAddress">212.73.137.40:27381</p>
+<div class="actions"><a id="secondaryConnect" href="steam://connect/212.73.137.40:27381">Csatlakozás</a><button id="secondaryCopy" type="button">IP másolása</button></div>
+</section>
+</div><p id="status" aria-live="polite"></p>
+</main>
+<script>
 (()=>{
- const q=new URLSearchParams(location.search);const selected=(q.get('server')||'main').toLowerCase()==='secondary'?'secondary':'main';
+ const q=new URLSearchParams(location.search);
+ const selected=(q.get('server')||'main').toLowerCase()==='secondary'?'secondary':'main';
  const validIp=x=>/^(?:\d{1,3}\.){3}\d{1,3}$/.test(x)&&x.split('.').every(n=>+n>=0&&+n<=255);
- const validPort=x=>Number.isInteger(Number(x))&&Number(x)>0&&Number(x)<=65535;
- const parse=(key,defaultIp,defaultPort)=>{let ip=(key===selected?(q.get('ip')||''): '').trim();let port=(key===selected?(q.get('port')||''): '').trim();if(!validIp(ip))ip=defaultIp;if(!validPort(port))port=defaultPort;const password=(key===selected?(q.get('password')||''):'');const steam=`steam://connect/${ip}:${port}`+(password?`/${encodeURIComponent(password)}`:'');const command=password?`password \"${password.replaceAll('\\','\\\\').replaceAll('\"','\\\"')}\"; connect ${ip}:${port}`:`connect ${ip}:${port}`;return {ip,port,address:`${ip}:${port}`,steam,command};};
- // Az aktív szerver adatait a Discord-gomb query paraméterei adják át. A másik
- // kártyánál alapérték látszik, de a csatlakozás mindig a kiválasztott szerverre megy.
- const main=parse('main','212.73.137.7','27914');const secondary=parse('secondary','212.73.137.40','27381');
- // Ha a kiválasztott szerver nincs a queryben, a másik kártya is megőrzi az ismert alapértékét.
- const mainData=selected==='main'?main:{ip:'212.73.137.7',port:'27914',address:'212.73.137.7:27914',steam:'steam://connect/212.73.137.7:27914',command:'connect 212.73.137.7:27914'};
- const secData=selected==='secondary'?secondary:{ip:'212.73.137.40',port:'27381',address:'212.73.137.40:27381',steam:'steam://connect/212.73.137.40:27381',command:'connect 212.73.137.40:27381'};
- document.getElementById('mainAddress').textContent=mainData.address;document.getElementById('secondaryAddress').textContent=secData.address;
- document.getElementById('mainLink').href=mainData.steam;document.getElementById('secondaryLink').href=secData.steam;
- document.getElementById('mainCard').classList.toggle('selected',selected==='main');document.getElementById('secondaryCard').classList.toggle('selected',selected==='secondary');
- document.getElementById('pageTitle').textContent=selected==='secondary'?'Csatlakozás a másodlagos szerverhez':'Csatlakozás a fő szerverhez';
- const active=selected==='secondary'?secData:mainData;document.title=`${selected==='secondary'?'Másodlagos':'Fő'} CS2 – Beako Manager`;
- const status=document.getElementById('status');
- async function copy(text){try{await navigator.clipboard.writeText(text);status.textContent='A CS2 konzolparancs a vágólapra másolva.'}catch{prompt('Másold be a CS2 konzoljába:',text)}}
- document.getElementById('mainCopy').addEventListener('click',()=>copy(mainData.command));document.getElementById('secondaryCopy').addEventListener('click',()=>copy(secData.command));
- // Automatikus próbálkozás a panelből érkező kiválasztott szerverre.
- // Böngészőszabályok miatt ezt néha csak a felhasználó újabb kattintása engedélyezi.
- window.addEventListener('load',()=>{status.textContent=`Csatlakozási kísérlet: ${selected==='secondary'?'másodlagos':'fő'} szerver (${active.address})`;setTimeout(()=>{location.href=active.steam},500)});
+ const validPort=x=>/^\d+$/.test(x)&&Number(x)>0&&Number(x)<=65535;
+ let ip=q.get('ip')||'';let port=q.get('port')||'';
+ if(!validIp(ip))ip=selected==='secondary'?'212.73.137.40':'212.73.137.7';
+ if(!validPort(port))port=selected==='secondary'?'27381':'27914';
+ const password=q.get('password')||'';
+ const servers={main:{address:'212.73.137.7:27914',url:'steam://connect/212.73.137.7:27914'},secondary:{address:'212.73.137.40:27381',url:'steam://connect/212.73.137.40:27381'}};
+ servers[selected]={address:`${ip}:${port}`,url:`steam://connect/${ip}:${port}`+(password?`/${encodeURIComponent(password)}`:'')};
+ for(const key of ['main','secondary']){
+  document.getElementById(key+'Address').textContent=servers[key].address;
+  document.getElementById(key+'Connect').href=servers[key].url;
+  document.getElementById(key+'Card').classList.toggle('active',key===selected);
+  document.getElementById(key+'Copy').addEventListener('click',async()=>{
+   const text=servers[key].address;const status=document.getElementById('status');
+   try{await navigator.clipboard.writeText(text);status.textContent='Kimásolva: '+text}
+   catch{const field=document.createElement('textarea');field.value=text;document.body.appendChild(field);field.select();const ok=document.execCommand('copy');field.remove();status.textContent=ok?'Kimásolva: '+text:'Másold ki ezt: '+text}
+  });
+ }
+ document.title=`${selected==='secondary'?'Másodlagos':'Fő'} CS2 szerver · Beako`;
 })();
 </script></body></html>
