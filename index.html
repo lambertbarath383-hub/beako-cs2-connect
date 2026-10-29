@@ -18,14 +18,14 @@
       <p class="address" id="mainAddress">212.73.137.7:27914</p>
       <div class="stats"><div class="stat"><div class="label">Állapot</div><div class="state-line"><span class="dot" id="mainDot"></span><strong class="value" id="mainState">Betöltés…</strong></div></div><div class="stat"><div class="label">Játékosok</div><strong class="value" id="mainPlayers">— / 16</strong></div></div>
       <div class="map"><img id="mainMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_mirage_radar_psd.png" alt="Fő szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="mainMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
-      <div class="actions"><a class="btn join" id="mainConnect" href="steam://connect/212.73.137.7:27914">Csatlakozás</a><button class="btn copy" id="mainCopy" type="button">IP másolása</button></div>
+      <div class="actions"><a class="btn join" id="mainConnect" href="steam://connect/212.73.137.7:27914">Csatlakozás</a><button class="btn copy" id="mainCopy" type="button">Csatlakozási parancs másolása</button></div>
     </section>
     <section class="server" id="secondaryCard" aria-labelledby="secondaryTitle">
       <div class="server-head"><h2 id="secondaryTitle">Másodlagos szerver</h2><span class="pill">CS2 · 2. SZERVER</span></div>
       <p class="address" id="secondaryAddress">212.73.137.40:27381</p>
       <div class="stats"><div class="stat"><div class="label">Állapot</div><div class="state-line"><span class="dot" id="secondaryDot"></span><strong class="value" id="secondaryState">Betöltés…</strong></div></div><div class="stat"><div class="label">Játékosok</div><strong class="value" id="secondaryPlayers">— / 16</strong></div></div>
       <div class="map"><img id="secondaryMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_nuke_radar_psd.png" alt="Másodlagos szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="secondaryMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
-      <div class="actions"><a class="btn join" id="secondaryConnect" href="steam://connect/212.73.137.40:27381">Csatlakozás</a><button class="btn copy" id="secondaryCopy" type="button">IP másolása</button></div>
+      <div class="actions"><a class="btn join" id="secondaryConnect" href="steam://connect/212.73.137.40:27381">Csatlakozás</a><button class="btn copy" id="secondaryCopy" type="button">Csatlakozási parancs másolása</button></div>
     </section>
   </div>
   <div class="bottom"><div class="error" id="loadError" role="status" aria-live="polite"></div></div>
@@ -36,8 +36,8 @@
   'use strict';
   const STATUS_URL = 'https://raw.githubusercontent.com/lambertbarath383-hub/beako-cs2-connect/live-status/status.json';
   const SERVERS = {
-    main: { ip: '212.73.137.7', port: '27914', fallbackMap: 'de_mirage' },
-    secondary: { ip: '212.73.137.40', port: '27381', fallbackMap: 'de_nuke' }
+    main: { ip: '212.73.137.7', port: '27914', password: 'kurvaanyatokrandomok', fallbackMap: 'de_mirage' },
+    secondary: { ip: '212.73.137.40', port: '27381', password: 'asdfddsahgf', fallbackMap: 'de_nuke' }
   };
   const MAPS = new Set(['de_mirage','de_nuke','de_dust2','de_inferno','de_ancient','de_anubis','de_overpass','de_vertigo','de_train','de_cache','de_cobblestone','de_mills','de_office','de_italy']);
   const byId = id => document.getElementById(id);
@@ -56,22 +56,37 @@
   };
   function setupServer(key, config) {
     const address = `${config.ip}:${config.port}`;
-    byId(`${key}Address`).textContent = address;
-    // Keep the Steam protocol link direct: no prompt and no hard-coded/shared password.
-    byId(`${key}Connect`).href = `steam://connect/${address}`;
-    byId(`${key}Connect`).addEventListener('click', () => {
-      // Let the browser handle the Steam protocol; don't intercept the navigation.
+    const encodedPassword = encodeURIComponent(config.password);
+    const connect = byId(`${key}Connect`);
+    // Steam's connect URI accepts the password as the final path segment.
+    connect.href = `steam://connect/${address}/${encodedPassword}`;
+    connect.addEventListener('click', () => {
+      // Do not prevent navigation: the browser hands the URI to Steam.
     });
+
+    // Copy a console-ready command; setting password first avoids a race with connect.
     byId(`${key}Copy`).addEventListener('click', async () => {
+      const command = `password ${config.password}; connect ${address}`;
       try {
-        await navigator.clipboard.writeText(address);
-        showToast(`Kimásolva: ${address}`);
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(command);
+        } else {
+          throw new Error('Clipboard API unavailable');
+        }
+        showToast('Csatlakozási parancs kimásolva. Illeszd be a CS2 konzoljába.');
       } catch (_) {
-        const field = document.createElement('textarea'); field.value = address;
-        field.setAttribute('readonly', ''); field.style.position = 'fixed'; field.style.opacity = '0';
-        document.body.appendChild(field); field.select();
-        let ok = false; try { ok = document.execCommand('copy'); } catch (_) {}
-        field.remove(); showToast(ok ? `Kimásolva: ${address}` : `Szerver címe: ${address}`);
+        const field = document.createElement('textarea');
+        field.value = command;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.left = '-9999px';
+        document.body.appendChild(field);
+        field.focus(); field.select(); field.setSelectionRange(0, field.value.length);
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (_) {}
+        field.remove();
+        if (ok) showToast('Csatlakozási parancs kimásolva. Illeszd be a CS2 konzoljába.');
+        else showToast('Másolás nem sikerült. Szerver címe: ' + address);
       }
     });
   }
