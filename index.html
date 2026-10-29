@@ -1,36 +1,115 @@
 <!doctype html>
 <html lang="hu">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171923">
-<title>Beako · CS2 szerverek</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11131b">
+<title>Beako Manager — CS2 szerverek</title>
 <style>
-:root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#171923;color:#f4f5fb}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at top,#292d42 0,#171923 62%)}main{width:min(100%,1240px);padding:28px;background:#222532;border:1px solid #3a3f53;border-radius:18px;box-shadow:0 20px 70px #0005}.brand{font-size:12px;font-weight:800;letter-spacing:.07em;color:#cbd3ff}h1{font-size:25px;margin:10px 0 0}h2{font-size:17px;margin:0}.intro{margin:8px 0 0;color:#b9bfd6;font-size:14px}.servers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:22px}.server{padding:20px;border:1px solid #41465d;border-radius:13px;background:#292d3d;min-width:0}.server.active{border-color:#6478ff;box-shadow:0 0 0 1px #6478ff55}.server-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.tag{font-size:11px;font-weight:800;letter-spacing:.05em;color:#cbd3ff;background:#383e57;padding:6px 9px;border-radius:999px;white-space:nowrap}.address{font:14px ui-monospace,SFMono-Regular,Consolas,monospace;color:#dce1ff;overflow-wrap:anywhere;margin:9px 0 14px}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}.stat{background:#222532;border-radius:9px;padding:11px;min-width:0}.stat-label{font-size:11px;color:#aeb4cc;margin-bottom:5px}.stat strong{font-size:15px}.mapbox{margin-top:12px;background:#202331;border:1px solid #3d4258;border-radius:10px;overflow:hidden}.map-image{width:100%;height:190px;object-fit:contain;display:block;background:#1c1f2b;padding:8px}.map-caption{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;font-size:13px}.map-caption strong{font-size:14px}.map-caption span{color:#aeb4cc;font-size:11px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}a,button{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px 13px;border:0;border-radius:9px;font-size:13px;font-weight:750;text-decoration:none;cursor:pointer}a{background:#6478ff;color:white}a:hover{background:#7889ff}button{background:#3b4054;color:#f3f4fb}button:hover{background:#4b516a}.extras{margin-top:20px;padding:17px;border:1px solid #41465d;border-radius:13px;background:#292d3d}.extras p{color:#c6c9d8;font-size:13px;line-height:1.5;margin:7px 0 12px}.extras a{background:#a34bdb}.extras a:hover{background:#b86be8}#status{min-height:18px;color:#aeb8ff;font-size:12px;margin:14px 0 0}.feed-note{font-size:11px;color:#8f96b1;margin-top:10px;line-height:1.5}@media(max-width:760px){body{padding:12px}main{padding:17px}.servers{grid-template-columns:1fr}.server{padding:16px}.map-image{height:170px}}
-</style></head>
-<body><main>
-<div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1>
-<div class="servers">
-<section class="server" id="mainCard"><div class="server-head"><h2>Fő szerver</h2><span class="tag">CS2 · FŐ</span></div><p class="address" id="mainAddress">212.73.137.7:27914</p>
-<div class="stats"><div class="stat"><div class="stat-label">Állapot</div><strong id="mainState">Adatfolyamra vár</strong></div><div class="stat"><div class="stat-label">Játékosok</div><strong id="mainPlayers">— / 16</strong></div></div>
-<div class="mapbox"><img class="map-image" id="mainMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_mirage_radar_psd.png" alt="A fő szerver aktuális pályájának térképe"><div class="map-caption"><strong id="mainMapName">Pályaadatra vár</strong><span>AKTUÁLIS PÁLYA</span></div></div>
-<div class="actions"><a id="mainConnect" href="steam://connect/212.73.137.7:27914">Csatlakozás</a><button id="mainCopy" type="button">IP másolása</button></div></section>
-<section class="server" id="secondaryCard"><div class="server-head"><h2>Másodlagos szerver</h2><span class="tag">CS2 · 2. SZERVER</span></div><p class="address" id="secondaryAddress">212.73.137.40:27381</p>
-<div class="stats"><div class="stat"><div class="stat-label">Állapot</div><strong id="secondaryState">Adatfolyamra vár</strong></div><div class="stat"><div class="stat-label">Játékosok</div><strong id="secondaryPlayers">— / 16</strong></div></div>
-<div class="mapbox"><img class="map-image" id="secondaryMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_nuke_radar_psd.png" alt="A másodlagos szerver aktuális pályájának térképe"><div class="map-caption"><strong id="secondaryMapName">Pályaadatra vár</strong><span>AKTUÁLIS PÁLYA</span></div></div>
-<div class="actions"><a id="secondaryConnect" href="steam://connect/212.73.137.40:27381">Csatlakozás</a><button id="secondaryCopy" type="button">IP másolása</button></div></section>
-</div>
-<section class="extras"><h2>Skinek beállítása</h2><p>A CS2 Inventory Simulator oldalán állíthatod be a skineket, majd a szervereden használhatod őket.</p><div class="actions"><a href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Inventory Simulator megnyitása ↗</a></div></section>
-
-</main><script>
-(()=>{
- const STATUS_URL='https://raw.githubusercontent.com/lambertbarath383-hub/beako-cs2-connect/live-status/status.json';
- const q=new URLSearchParams(location.search);const selected=(q.get('server')||'main').toLowerCase()==='secondary'?'secondary':'main';
- const validIp=x=>/^(?:\d{1,3}\.){3}\d{1,3}$/.test(x)&&x.split('.').every(n=>+n>=0&&+n<=255);const validPort=x=>/^\d+$/.test(x)&&Number(x)>0&&Number(x)<=65535;
- const servers={main:{ip:'212.73.137.7',port:'27914'},secondary:{ip:'212.73.137.40',port:'27381'}};
- if(validIp(q.get('ip')||'')&&validPort(q.get('port')||''))servers[selected]={ip:q.get('ip'),port:q.get('port')};
- const mapIds={nuke:'de_nuke',de_nuke:'de_nuke',mirage:'de_mirage',de_mirage:'de_mirage',dust2:'de_dust2',de_dust2:'de_dust2',inferno:'de_inferno',de_inferno:'de_inferno',ancient:'de_ancient',de_ancient:'de_ancient',anubis:'de_anubis',de_anubis:'de_anubis',overpass:'de_overpass',de_overpass:'de_overpass',vertigo:'de_vertigo',de_vertigo:'de_vertigo',train:'de_train',de_train:'de_train'};
- const titleMap=m=>{const clean=String(m||'').replace(/^de_/,'').replaceAll('_',' ');return clean?clean.replace(/\b\w/g,c=>c.toUpperCase()):'Pályaadatra vár'};
- for(const key of ['main','secondary']){const s=servers[key],addr=`${s.ip}:${s.port}`,connect=document.getElementById(key+'Connect');document.getElementById(key+'Address').textContent=addr;connect.href=`steam://connect/${addr}`;connect.removeAttribute('target');connect.setAttribute('aria-label',`${key==='main'?'Fő':'Másodlagos'} szerver megnyitása CS2-ben`);document.getElementById(key+'Card').classList.toggle('active',key===selected);document.getElementById(key+'Copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(addr)}catch{const f=document.createElement('textarea');f.value=addr;document.body.appendChild(f);f.select();document.execCommand('copy');f.remove()}})}
- async function refresh(){try{const r=await fetch(STATUS_URL+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const data=await r.json();for(const key of ['main','secondary']){const s=data[key];if(!s)continue;document.getElementById(key+'State').textContent=s.online===false?'Offline':s.online===true?'Online':'Ismeretlen';if(s.players!==undefined&&s.players!==null&&Number.isFinite(Number(s.players)))document.getElementById(key+'Players').textContent=`${Number(s.players)} / ${Number.isFinite(Number(s.maxPlayers))?Number(s.maxPlayers):16}`;if(s.map){document.getElementById(key+'MapName').textContent=titleMap(s.map);const map=mapIds[String(s.map).toLowerCase()]||null;if(map)document.getElementById(key+'MapImage').src=`https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/${map}_radar_psd.png`;}}}catch(error){console.warn('Élő státuszfrissítés sikertelen:',error);}}
- document.title=`${selected==='secondary'?'Másodlagos':'Fő'} CS2 szerver · Beako`;refresh();setInterval(refresh,15000);
+:root{color-scheme:dark;--bg:#11131b;--panel:#1a1d29;--card:#202433;--line:#343a50;--muted:#a9b0c7;--text:#f4f6ff;--accent:#7888ff;--green:#57d6a0;--red:#ff7d89;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(900px 480px at 50% -150px,#30375a 0,transparent 70%),var(--bg);color:var(--text);padding:28px 16px 40px}.wrap{width:min(1120px,100%);margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px}.brand{font-size:12px;letter-spacing:.13em;font-weight:850;color:#c9d0ff}.topnote{font-size:12px;color:var(--muted)}h1{font-size:clamp(28px,4vw,38px);letter-spacing:-.035em;margin:8px 0 0}.servers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.server{min-width:0;background:linear-gradient(160deg,#232839,#1a1d29 75%);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 18px 55px #0002}.server-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.server h2{font-size:18px;margin:0}.pill{font-size:10px;font-weight:850;letter-spacing:.09em;color:#d6dcff;background:#333b5c;border:1px solid #424c75;border-radius:999px;padding:7px 9px;white-space:nowrap}.address{font:13px ui-monospace,SFMono-Regular,Consolas,monospace;color:#d9defa;margin:10px 0 18px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:12px 13px;background:#151823;border:1px solid #2b3042;border-radius:12px;min-width:0}.label{font-size:11px;color:var(--muted);margin-bottom:6px}.value{font-size:16px;font-weight:800;overflow-wrap:anywhere}.state-line{display:flex;align-items:center;gap:8px}.dot{width:8px;height:8px;border-radius:50%;background:#8a90a4;flex:none}.dot.online{background:var(--green);box-shadow:0 0 10px #57d6a055}.dot.offline{background:var(--red)}.map{position:relative;margin-top:13px;border:1px solid #343a50;border-radius:13px;overflow:hidden;background:#151823}.map img{display:block;width:100%;height:190px;object-fit:contain;padding:8px;background:linear-gradient(145deg,#171a26,#1b2030)}.mapfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 13px;border-top:1px solid #2c3143}.mapname{font-size:14px;font-weight:800}.maplabel{font-size:10px;letter-spacing:.08em;color:var(--muted)}.actions{display:flex;gap:9px;margin-top:14px}.btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:0 16px;border-radius:10px;border:1px solid transparent;font:750 13px inherit;text-decoration:none;cursor:pointer;transition:transform .12s,background .12s}.btn:active{transform:translateY(1px)}.join{background:var(--accent);color:white;flex:1}.join:hover{background:#8997ff}.copy{background:#30364a;color:#edf0ff;border-color:#414862}.copy:hover{background:#3b435c}.bottom{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.skin{color:#dce0ff;font-size:13px;text-decoration:none;border:1px solid var(--line);background:#1a1d29;padding:11px 14px;border-radius:10px}.skin:hover{border-color:#6c79d8}.error{color:#ffabb3;font-size:12px;min-height:16px}.hidden{display:none!important}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:#252b3d;border:1px solid #4a5271;color:#fff;border-radius:11px;padding:12px 16px;font-size:13px;box-shadow:0 10px 40px #0006;transition:.2s;max-width:calc(100vw - 28px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:720px){body{padding:18px 12px 30px}.top{align-items:flex-start;flex-direction:column;margin-bottom:18px}.servers{grid-template-columns:1fr}.server{padding:16px}.map img{height:170px}.bottom{align-items:flex-start;flex-direction:column}.skin{width:100%;text-align:center}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></header>
+  <div class="servers">
+    <section class="server" id="mainCard" aria-labelledby="mainTitle">
+      <div class="server-head"><h2 id="mainTitle">Fő szerver</h2><span class="pill">CS2 · FŐ</span></div>
+      <p class="address" id="mainAddress">212.73.137.7:27914</p>
+      <div class="stats"><div class="stat"><div class="label">Állapot</div><div class="state-line"><span class="dot" id="mainDot"></span><strong class="value" id="mainState">Betöltés…</strong></div></div><div class="stat"><div class="label">Játékosok</div><strong class="value" id="mainPlayers">— / 16</strong></div></div>
+      <div class="map"><img id="mainMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_mirage_radar_psd.png" alt="Fő szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="mainMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
+      <div class="actions"><a class="btn join" id="mainConnect" href="steam://connect/212.73.137.7:27914">Csatlakozás</a><button class="btn copy" id="mainCopy" type="button">IP másolása</button></div>
+    </section>
+    <section class="server" id="secondaryCard" aria-labelledby="secondaryTitle">
+      <div class="server-head"><h2 id="secondaryTitle">Másodlagos szerver</h2><span class="pill">CS2 · 2. SZERVER</span></div>
+      <p class="address" id="secondaryAddress">212.73.137.40:27381</p>
+      <div class="stats"><div class="stat"><div class="label">Állapot</div><div class="state-line"><span class="dot" id="secondaryDot"></span><strong class="value" id="secondaryState">Betöltés…</strong></div></div><div class="stat"><div class="label">Játékosok</div><strong class="value" id="secondaryPlayers">— / 16</strong></div></div>
+      <div class="map"><img id="secondaryMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_nuke_radar_psd.png" alt="Másodlagos szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="secondaryMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
+      <div class="actions"><a class="btn join" id="secondaryConnect" href="steam://connect/212.73.137.40:27381">Csatlakozás</a><button class="btn copy" id="secondaryCopy" type="button">IP másolása</button></div>
+    </section>
+  </div>
+  <div class="bottom"><div class="error" id="loadError" role="status" aria-live="polite"></div></div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const STATUS_URL = 'https://raw.githubusercontent.com/lambertbarath383-hub/beako-cs2-connect/live-status/status.json';
+  const SERVERS = {
+    main: { ip: '212.73.137.7', port: '27914', fallbackMap: 'de_mirage' },
+    secondary: { ip: '212.73.137.40', port: '27381', fallbackMap: 'de_nuke' }
+  };
+  const MAPS = new Set(['de_mirage','de_nuke','de_dust2','de_inferno','de_ancient','de_anubis','de_overpass','de_vertigo','de_train','de_cache','de_cobblestone','de_mills','de_office','de_italy']);
+  const byId = id => document.getElementById(id);
+  const mapId = raw => {
+    const value = String(raw || '').trim().toLowerCase();
+    const normalized = value.startsWith('de_') ? value : `de_${value}`;
+    return MAPS.has(normalized) ? normalized : '';
+  };
+  const mapTitle = raw => {
+    const id = mapId(raw);
+    return id ? id.slice(3).replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Pályaadatra vár';
+  };
+  const showToast = message => {
+    const toast = byId('toast'); toast.textContent = message; toast.classList.add('show');
+    window.setTimeout(() => toast.classList.remove('show'), 2200);
+  };
+  function setupServer(key, config) {
+    const address = `${config.ip}:${config.port}`;
+    byId(`${key}Address`).textContent = address;
+    // Keep the Steam protocol link direct: no prompt and no hard-coded/shared password.
+    byId(`${key}Connect`).href = `steam://connect/${address}`;
+    byId(`${key}Connect`).addEventListener('click', () => {
+      // Let the browser handle the Steam protocol; don't intercept the navigation.
+    });
+    byId(`${key}Copy`).addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(address);
+        showToast(`Kimásolva: ${address}`);
+      } catch (_) {
+        const field = document.createElement('textarea'); field.value = address;
+        field.setAttribute('readonly', ''); field.style.position = 'fixed'; field.style.opacity = '0';
+        document.body.appendChild(field); field.select();
+        let ok = false; try { ok = document.execCommand('copy'); } catch (_) {}
+        field.remove(); showToast(ok ? `Kimásolva: ${address}` : `Szerver címe: ${address}`);
+      }
+    });
+  }
+  function renderServer(key, data) {
+    const config = SERVERS[key];
+    const online = data && data.online === true;
+    const count = Number(data && data.players);
+    const max = Number(data && data.maxPlayers);
+    byId(`${key}Dot`).className = `dot ${online ? 'online' : (data && data.online === false ? 'offline' : '')}`;
+    byId(`${key}State`).textContent = online ? 'Online' : (data && data.online === false ? 'Offline' : 'Ismeretlen');
+    byId(`${key}Players`).textContent = Number.isFinite(count) && count >= 0 ? `${Math.floor(count)} / ${Number.isFinite(max) && max > 0 ? Math.floor(max) : 16}` : `— / ${Number.isFinite(max) && max > 0 ? Math.floor(max) : 16}`;
+    const selectedMap = mapId(data && data.map) || config.fallbackMap;
+    byId(`${key}MapName`).textContent = mapTitle(data && data.map) !== 'Pályaadatra vár' ? mapTitle(data.map) : 'Pályaadatra vár';
+    byId(`${key}MapImage`).src = `https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/${selectedMap}_radar_psd.png`;
+    byId(`${key}MapImage`).onerror = () => {
+      byId(`${key}MapImage`).onerror = null;
+      byId(`${key}MapImage`).src = `https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/${config.fallbackMap}_radar_psd.png`;
+    };
+  }
+  async function refreshStatus() {
+    const error = byId('loadError');
+    try {
+      const response = await fetch(`${STATUS_URL}?v=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const status = await response.json();
+      if (!status || typeof status !== 'object' || (!status.main && !status.secondary)) throw new Error('Hibás státuszfájl');
+      renderServer('main', status.main || null);
+      renderServer('secondary', status.secondary || null);
+      error.textContent = '';
+    } catch (_) {
+      error.textContent = 'Az élő státusz átmenetileg nem érhető el.';
+      // Keep the page and direct-connect buttons usable even when status fetching fails.
+    }
+  }
+  Object.entries(SERVERS).forEach(([key, config]) => setupServer(key, config));
+  refreshStatus();
+  window.setInterval(refreshStatus, 15000);
 })();
-</script></body></html>
+</script>
+</body>
+</html>
