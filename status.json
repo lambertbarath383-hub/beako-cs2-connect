@@ -1,0 +1,19 @@
+{
+  "updatedAt": "2026-10-31T17:47:35.077Z",
+  "main": {
+    "online": true,
+    "players": 0,
+    "maxPlayers": 16,
+    "map": "de_dust2",
+    "updatedAt": "2026-10-31T17:47:35.077Z",
+    "playerEventAt": "2026-10-31T16:43:17.151Z"
+  },
+  "secondary": {
+    "online": true,
+    "players": 0,
+    "maxPlayers": 16,
+    "map": "de_ancient",
+    "updatedAt": "2026-10-31T17:47:35.063Z",
+    "playerEventAt": null
+  }
+}
