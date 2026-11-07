@@ -1,0 +1,19 @@
+{
+  "updatedAt": "2026-11-07T11:40:48.856Z",
+  "main": {
+    "online": true,
+    "players": 0,
+    "maxPlayers": 16,
+    "map": "de_ancient",
+    "updatedAt": "2026-11-07T11:40:48.856Z",
+    "playerEventAt": null
+  },
+  "secondary": {
+    "online": true,
+    "players": 0,
+    "maxPlayers": 16,
+    "map": "de_ancient",
+    "updatedAt": "2026-11-07T11:40:48.842Z",
+    "playerEventAt": null
+  }
+}
