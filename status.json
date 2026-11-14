@@ -1,0 +1,19 @@
+{
+  "updatedAt": "2026-11-14T15:07:46.780Z",
+  "main": {
+    "online": true,
+    "players": 0,
+    "maxPlayers": 16,
+    "map": "de_mirage",
+    "updatedAt": "2026-11-14T15:07:46.780Z",
+    "playerEventAt": "2026-11-14T14:16:38.494Z"
+  },
+  "secondary": {
+    "online": true,
+    "players": 2,
+    "maxPlayers": 16,
+    "map": "de_ancient",
+    "updatedAt": "2026-11-14T15:07:46.776Z",
+    "playerEventAt": "2026-11-14T14:52:13.135Z"
+  }
+}
