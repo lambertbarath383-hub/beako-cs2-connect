@@ -12,25 +12,11 @@
 
 .single-server .servers{grid-template-columns:minmax(0,1fr);max-width:760px}
 .single-server .server{width:100%}
-
-/* A karakter a panelek mögötti kép jobb oldalán marad szabadon. */
-.server-stage{position:relative;isolation:isolate;min-height:620px;margin:0 0 22px;padding:26px 22px;border:1px solid rgba(220,228,255,.36);border-radius:18px;overflow:hidden;background-color:rgba(12,15,24,.20);background-image:linear-gradient(90deg,rgba(12,15,24,.10),rgba(12,15,24,.02) 68%),url('/beako-character.jpg');background-repeat:no-repeat;background-position:right center;background-size:auto 100%;box-shadow:0 18px 55px rgba(0,0,0,.16)}
-.server-stage .servers{position:relative;z-index:1;width:min(68%,760px);grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.server-stage .server{padding:16px;background:linear-gradient(145deg,rgba(20,24,36,.88),rgba(17,20,31,.82) 75%);backdrop-filter:blur(3px)}
-.server-stage .map img{height:155px}
-.server-stage .actions{flex-wrap:wrap}
-.server-stage .btn{padding-left:11px;padding-right:11px}
-.single-server .server-stage .servers{width:min(68%,760px);max-width:760px}
-@media(max-width:900px){.server-stage{min-height:0;background-size:auto 100%;background-position:right center}.server-stage .servers,.single-server .server-stage .servers{width:64%;grid-template-columns:1fr}.server-stage .map img{height:130px}}
-@media(max-width:620px){.server-stage{padding:14px;background-size:auto 54%;background-position:right top}.server-stage .servers,.single-server .server-stage .servers{width:100%;grid-template-columns:1fr;padding-top:210px}.server-stage .server{background:rgba(17,20,31,.92)}.server-stage .map img{height:150px}}
-
 </style>
 </head>
 <body>
 <main class="wrap">
   <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><nav class="header-actions" aria-label="Külső hivatkozások"><a class="skin discord-link" href="https://discord.gg/DZ4j5mnp6" target="_blank" rel="noopener noreferrer" aria-label="Csatlakozás a Discord szerverhez"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 5.3A18.3 18.3 0 0 0 15.2 4l-.6 1.2a16.8 16.8 0 0 0-5.2 0L8.8 4a18.2 18.2 0 0 0-4.5 1.3C1.5 9.5.7 13.6 1.1 17.6a18.5 18.5 0 0 0 5.5 2.8l1.2-2a11.9 11.9 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.2-12.3ZM8.7 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>Discord szerver ↗</a><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></nav></header>
-
-  <section class="server-stage" aria-label="Beako illusztráció és CS2 szerverpanelek">
   <div class="servers">
     <section class="server" id="mainCard" aria-labelledby="mainTitle">
       <div class="server-head"><h2 id="mainTitle">Fő szerver</h2><span class="pill">CS2 · FŐ</span></div>
@@ -47,7 +33,6 @@
       <div class="actions"><a class="btn join" id="secondaryConnect" href="steam://connect/212.73.137.40:27381">Csatlakozás</a><button class="btn copy" id="secondaryCopy" type="button">Csatlakozási parancs másolása</button></div>
     </section>
   </div>
-  </section>
   <div class="bottom"><div class="error" id="loadError" role="status" aria-live="polite"></div></div>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
