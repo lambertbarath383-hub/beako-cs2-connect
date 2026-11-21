@@ -107,7 +107,7 @@ h1{font-size:clamp(30px,4vw,44px);font-weight:850;letter-spacing:-.045em;margin:
 .error{text-align:center}
 .toast{z-index:5;background:#171f3b;border-color:#6960a9}
 #snowfall{
-  position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;
+  position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:2;
 }
 .snowflake{
   position:absolute;top:-12px;left:var(--left);
@@ -233,20 +233,20 @@ textarea,
 <body>
 <div id="snowfall" aria-hidden="true"></div>
 <main class="wrap">
-  <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><nav class="header-actions" aria-label="Külső hivatkozások"><a class="skin discord-link" href="https://discord.gg/NK3gEzp8Sq" target="_blank" rel="noopener noreferrer" aria-label="Csatlakozás a Discord szerverhez"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 5.3A18.3 18.3 0 0 0 15.2 4l-.6 1.2a16.8 16.8 0 0 0-5.2 0L8.8 4a18.2 18.2 0 0 0-4.5 1.3C1.5 9.5.7 13.6 1.1 17.6a18.5 18.5 0 0 0 5.5 2.8l1.2-2a11.9 11.9 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.2-12.3ZM8.7 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>Discord szerver ↗</a><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></nav></header>
+  <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><nav class="header-actions" aria-label="Külső hivatkozások"><a class="skin discord-link" href="https://discord.gg/DZ4j5mnp6" target="_blank" rel="noopener noreferrer" aria-label="Csatlakozás a Discord szerverhez"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 5.3A18.3 18.3 0 0 0 15.2 4l-.6 1.2a16.8 16.8 0 0 0-5.2 0L8.8 4a18.2 18.2 0 0 0-4.5 1.3C1.5 9.5.7 13.6 1.1 17.6a18.5 18.5 0 0 0 5.5 2.8l1.2-2a11.9 11.9 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.2-12.3ZM8.7 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>Discord szerver ↗</a><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></nav></header>
   <div class="servers">
     <section class="server" id="mainCard" aria-labelledby="mainTitle">
       <div class="server-head"><h2 id="mainTitle">Fő szerver</h2><span class="pill">CS2 · FŐ</span></div>
       <p class="address" id="mainAddress">212.73.137.7:27914</p>
       <div class="stats"><div class="stat"><div class="label">Állapot</div><div class="state-line"><span class="dot" id="mainDot"></span><strong class="value" id="mainState">Betöltés…</strong></div></div><div class="stat"><div class="label">Játékosok</div><strong class="value" id="mainPlayers">— / 16</strong></div></div>
-      <div class="map"><img id="mainMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/thumbs/de_mirage_1_png.png" alt="Fő szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="mainMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
+      <div class="map"><img id="mainMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_mirage_radar_psd.png" alt="Fő szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="mainMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
       <div class="actions"><a class="btn join" id="mainConnect" href="steam://connect/212.73.137.7:27914">Csatlakozás</a><button class="btn copy" id="mainCopy" type="button">Csatlakozási parancs másolása</button></div>
     </section>
     <section class="server" id="secondaryCard" aria-labelledby="secondaryTitle">
       <div class="server-head"><h2 id="secondaryTitle">Másodlagos szerver</h2><span class="pill">CS2 · 2. SZERVER</span></div>
       <p class="address" id="secondaryAddress">212.73.137.40:27381</p>
       <div class="stats"><div class="stat"><div class="label">Állapot</div><div class="state-line"><span class="dot" id="secondaryDot"></span><strong class="value" id="secondaryState">Betöltés…</strong></div></div><div class="stat"><div class="label">Játékosok</div><strong class="value" id="secondaryPlayers">— / 16</strong></div></div>
-      <div class="map"><img id="secondaryMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/thumbs/de_nuke_1_png.png" alt="Másodlagos szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="secondaryMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
+      <div class="map"><img id="secondaryMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_nuke_radar_psd.png" alt="Másodlagos szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="secondaryMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
       <div class="actions"><a class="btn join" id="secondaryConnect" href="steam://connect/212.73.137.40:27381">Csatlakozás</a><button class="btn copy" id="secondaryCopy" type="button">Csatlakozási parancs másolása</button></div>
     </section>
   </div>
@@ -273,20 +273,16 @@ textarea,
     main: { ip: '212.73.137.7', port: '27914', password: 'kurvaanyatokrandomok', fallbackMap: 'de_mirage' },
     secondary: { ip: '212.73.137.40', port: '27381', password: 'asdfddsahgf', fallbackMap: 'de_nuke' }
   };
+  const MAPS = new Set(['de_mirage','de_nuke','de_dust2','de_inferno','de_ancient','de_anubis','de_overpass','de_vertigo','de_train','de_cache','de_cobblestone','de_mills','de_office','de_italy']);
   const byId = id => document.getElementById(id);
-  // Ugyanaz a kép-URL logika, mint a Discord bot data/maps.js fájljában.
-  // A mapnévből eltávolítjuk a workshop útvonalat és az esetleges .bsp kiterjesztést.
   const mapId = raw => {
-    const value = String(raw || '').trim().replace(/\\\\/g, '/').split('/').pop().toLowerCase().replace(/\.bsp$/i, '');
-    return /^[a-z0-9_]+$/.test(value) ? value : '';
+    const value = String(raw || '').trim().toLowerCase();
+    const normalized = value.startsWith('de_') ? value : `de_${value}`;
+    return MAPS.has(normalized) ? normalized : '';
   };
   const mapTitle = raw => {
     const id = mapId(raw);
-    return id ? id.replace(/^(de_|cs_)/, '').replace(/_/g, ' ').replace(/\\b\\w/g, c => c.toUpperCase()) : 'Pályaadatra vár';
-  };
-  const mapImageUrl = raw => {
-    const id = mapId(raw);
-    return id ? `https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/thumbs/${id}_1_png.png` : '';
+    return id ? id.slice(3).replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Pályaadatra vár';
   };
   const showToast = message => {
     const toast = byId('toast'); toast.textContent = message; toast.classList.add('show');
@@ -342,12 +338,11 @@ textarea,
     byId(`${key}Players`).textContent = Number.isFinite(count) && count >= 0 ? `${Math.floor(count)} / ${Number.isFinite(max) && max > 0 ? Math.floor(max) : 16}` : `— / ${Number.isFinite(max) && max > 0 ? Math.floor(max) : 16}`;
     const selectedMap = mapId(data && data.map) || config.fallbackMap;
     byId(`${key}MapName`).textContent = mapTitle(data && data.map) !== 'Pályaadatra vár' ? mapTitle(data.map) : 'Pályaadatra vár';
-    const mapImage = byId(`${key}MapImage`);
-    mapImage.onerror = () => {
-      mapImage.onerror = null;
-      mapImage.src = mapImageUrl(config.fallbackMap);
+    byId(`${key}MapImage`).src = `https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/${selectedMap}_radar_psd.png`;
+    byId(`${key}MapImage`).onerror = () => {
+      byId(`${key}MapImage`).onerror = null;
+      byId(`${key}MapImage`).src = `https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/${config.fallbackMap}_radar_psd.png`;
     };
-    mapImage.src = mapImageUrl(selectedMap);
   }
   async function refreshStatus() {
     const error = byId('loadError');
