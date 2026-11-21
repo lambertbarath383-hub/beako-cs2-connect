@@ -22,40 +22,46 @@ h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shad
 .skin{color:#f4efff;font-size:12px;font-weight:750;text-decoration:none;border:1px solid rgba(224,226,255,.38);background:rgba(12,20,49,.72);backdrop-filter:blur(12px);padding:10px 13px;border-radius:12px;box-shadow:0 8px 26px rgba(0,0,0,.18);transition:transform .25s,border-color .25s,background .25s,box-shadow .25s}
 .skin:hover{transform:translateY(-2px);border-color:#ffdca0;background:rgba(38,40,78,.88);box-shadow:0 0 22px rgba(255,205,128,.2)}
 .discord-link{display:inline-flex;align-items:center;gap:8px}.discord-link svg{width:17px;height:17px;flex:none}
-.servers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:min(850px,78vw);margin:126px auto 0;align-items:stretch}
-.server{min-width:0;min-height:350px;position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(7,17,47,.82),rgba(9,20,53,.76));border:1px solid rgba(188,209,255,.55);border-radius:18px;padding:14px 15px 13px;box-shadow:0 18px 50px rgba(1,5,24,.30),inset 0 1px 0 rgba(255,255,255,.10),0 0 22px rgba(124,155,255,.10);backdrop-filter:blur(9px) saturate(125%);-webkit-backdrop-filter:blur(9px) saturate(125%);animation:cardEnter .8s cubic-bezier(.2,.75,.25,1) both;transition:transform .28s,border-color .28s,box-shadow .28s,background .28s}
+.servers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:min(1100px,90vw);margin:205px auto 0;align-items:stretch}
+.server{min-width:0;min-height:300px;position:relative;overflow:hidden;background:#07132f;border:1px solid rgba(188,209,255,.48);border-radius:13px;padding:14px 15px 13px;box-shadow:0 12px 28px rgba(1,5,24,.34),0 0 14px rgba(124,155,255,.10);backdrop-filter:none;-webkit-backdrop-filter:none;animation:cardEnter .8s cubic-bezier(.2,.75,.25,1) both;transition:transform .28s,border-color .28s,box-shadow .28s}
 .server:nth-child(2){animation-delay:.13s}
-.server:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.10),transparent 26%,transparent 72%,rgba(156,184,255,.08));opacity:.7}
-.server:hover,.server:focus-within{transform:translateY(-4px);border-color:rgba(255,225,171,.86);box-shadow:0 24px 60px rgba(1,5,24,.42),0 0 28px rgba(255,213,150,.14),inset 0 1px 0 rgba(255,255,255,.15)}
+.server:before{content:none}
+.server:hover,.server:focus-within{transform:translateY(-2px);border-color:rgba(255,225,171,.72);box-shadow:0 16px 34px rgba(1,5,24,.42),0 0 20px rgba(255,213,150,.12)}
 @keyframes cardEnter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 .server-head{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative}
 .server h2{font-size:16px;margin:0;color:#fff7e9;text-shadow:0 1px 12px #020719}
 .pill{font-size:9px;font-weight:900;letter-spacing:.09em;color:#e5eaff;background:rgba(89,111,180,.35);border:1px solid rgba(180,197,255,.42);border-radius:999px;padding:6px 8px;white-space:nowrap}
 .address{font:11px ui-monospace,SFMono-Regular,Consolas,monospace;color:#dce5ff;margin:8px 0 10px;position:relative}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative}
-.stat{padding:8px 10px;background:rgba(3,10,30,.52);border:1px solid rgba(175,195,255,.22);border-radius:10px;min-width:0;transition:background .2s,border-color .2s}
-.server:hover .stat{background:rgba(6,14,39,.70);border-color:rgba(194,211,255,.36)}
+.stat{padding:8px 10px;background:#0b1939;border:1px solid rgba(175,195,255,.25);border-radius:10px;min-width:0;transition:background .2s,border-color .2s}
+.server:hover .stat{background:#102044;border-color:rgba(194,211,255,.36)}
 .label{font-size:10px;color:#c4cde8;margin-bottom:4px}.value{font-size:14px;font-weight:850;overflow-wrap:anywhere}
 .state-line{display:flex;align-items:center;gap:8px}.dot{width:8px;height:8px;border-radius:50%;background:#9aa4c2;flex:none}.dot.online{background:var(--green);box-shadow:0 0 0 3px rgba(117,240,189,.12),0 0 13px #57d6a0aa;animation:onlinePulse 2.2s ease-in-out infinite}.dot.offline{background:var(--red);box-shadow:0 0 10px #ff7d8955}
 @keyframes onlinePulse{50%{box-shadow:0 0 0 5px rgba(117,240,189,.04),0 0 18px #57d6a0}}
-.map{position:relative;margin-top:9px;border:1px solid rgba(176,196,255,.28);border-radius:11px;overflow:hidden;background:rgba(4,10,28,.55)}
-.map img{display:block;width:100%;height:83px;object-fit:contain;padding:4px;background:linear-gradient(145deg,rgba(13,24,55,.7),rgba(15,26,59,.45))}
+.map{position:relative;margin-top:9px;border:1px solid rgba(176,196,255,.28);border-radius:11px;overflow:hidden;background:#091633}
+.map img{display:block;width:100%;height:83px;object-fit:contain;padding:4px;background:#0b1938}
 .mapfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 10px;border-top:1px solid rgba(176,196,255,.20)}
 .mapname{font-size:12px;font-weight:850}.maplabel{font-size:9px;letter-spacing:.08em;color:#b9c7e9}
 .actions{display:flex;gap:7px;margin-top:9px;position:relative}
 .btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 11px;border-radius:9px;border:1px solid transparent;font:750 11px inherit;text-decoration:none;cursor:pointer;transition:transform .18s,background .18s,border-color .18s,box-shadow .18s}
 .btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(0) scale(.98)}
 .join{background:linear-gradient(110deg,#7e8cff,#9d8eff);color:white;flex:1;box-shadow:0 5px 18px rgba(112,126,255,.25)}.join:hover{background:linear-gradient(110deg,#98a3ff,#b5a2ff);box-shadow:0 7px 22px rgba(135,143,255,.38)}
-.copy{background:rgba(206,218,255,.10);color:#f3f5ff;border-color:rgba(203,216,255,.28)}.copy:hover{background:rgba(206,218,255,.18);border-color:rgba(230,232,255,.55)}
+.copy{background:#1a2a50;color:#f3f5ff;border-color:rgba(203,216,255,.28)}.copy:hover{background:#263a68;border-color:rgba(230,232,255,.55)}
 .bottom{margin:12px auto 0;width:min(850px,78vw);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .error{color:#ffd0d5;font-size:11px;min-height:16px;text-shadow:0 1px 8px #000}.hidden{display:none!important}
+.sign-hotspots{position:fixed;inset:0;z-index:7;pointer-events:none}
+.sign-hotspot{position:absolute;display:block;pointer-events:auto;left:72.5%;width:19%;border-radius:22px;background:transparent;text-decoration:none;outline:none;cursor:pointer}
+.sign-discord{top:36%;height:13.5%}
+.sign-skin{top:51.5%;height:13%}
+.sign-hotspot:focus-visible{outline:3px solid #ffe4a8;outline-offset:3px;background:rgba(255,230,170,.08)}
+@media(max-width:720px){.sign-hotspots{display:none}}
 .toast{position:fixed;left:50%;bottom:22px;z-index:20;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:rgba(18,27,57,.94);border:1px solid rgba(197,211,255,.48);color:#fff;border-radius:11px;padding:12px 16px;font-size:13px;box-shadow:0 10px 40px #0008;transition:.22s;max-width:calc(100vw - 28px);text-align:center;backdrop-filter:blur(12px)}.toast.show{opacity:1;transform:translate(-50%,0)}
 .snow-layer{position:fixed;inset:0;overflow:hidden;pointer-events:none}.snow-back{z-index:2;opacity:.72}.snow-front{z-index:5;opacity:.92}.snowflake{position:absolute;top:-12vh;left:var(--x);width:var(--size);height:var(--size);border-radius:50%;background:rgba(244,249,255,.94);box-shadow:0 0 7px rgba(210,231,255,.62);opacity:var(--alpha);animation:snowFall var(--duration) linear var(--delay) infinite;will-change:transform}
 .snow-back .snowflake{filter:blur(.45px)}.snow-front .snowflake{box-shadow:0 0 9px rgba(220,237,255,.72)}
 @keyframes snowFall{0%{transform:translate3d(0,-12vh,0)}25%{transform:translate3d(22px,22vh,0)}50%{transform:translate3d(-13px,48vh,0)}75%{transform:translate3d(18px,74vh,0)}100%{transform:translate3d(-8px,112vh,0)}}
-.single-server .servers{grid-template-columns:minmax(0,1fr);max-width:415px;width:min(415px,90vw);margin-top:126px}.single-server .server{width:100%}.single-server .bottom{width:min(415px,90vw)}
-@media(min-width:1500px){.servers{margin-top:142px}}
-@media(max-width:900px){body{background-attachment:scroll}.servers{width:min(850px,94vw);margin-top:105px}.bottom{width:min(850px,94vw)}}
+.single-server .servers{grid-template-columns:minmax(0,1fr);max-width:415px;width:min(415px,90vw);margin-top:205px;transform:none}.single-server .server{width:100%}.single-server .bottom{width:min(415px,90vw)}
+@media(min-width:1500px){.servers{margin-top:205px}}
+@media(max-width:900px){body{background-attachment:scroll}.servers{width:min(850px,94vw);margin-top:105px;transform:none}.bottom{width:min(850px,94vw)}}
 @media(max-width:720px){body{padding:14px 11px 28px;background-position:34% top;background-size:auto 100vh;min-height:100vh}.top{align-items:flex-start;flex-direction:column;margin-bottom:0;padding:0 5px;gap:10px}.header-actions{width:100%}.skin{flex:1;justify-content:center;text-align:center}.servers{grid-template-columns:1fr;width:min(430px,94vw);gap:12px;margin-top:74px}.server{min-height:0;padding:13px}.map img{height:72px}.bottom{width:min(430px,94vw)}.single-server .servers{margin-top:74px}.snow-front .snowflake:nth-child(n+14){display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.snow-layer{display:none}}
 </style>
@@ -63,7 +69,11 @@ h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shad
 <body>
 <div class="snow-layer snow-back" id="snowBack" aria-hidden="true"></div>
 <main class="wrap">
-  <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><nav class="header-actions" aria-label="Külső hivatkozások"><a class="skin discord-link" href="https://discord.gg/NK3gEzp8Sq" target="_blank" rel="noopener noreferrer" aria-label="Csatlakozás a Discord szerverhez"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 5.3A18.3 18.3 0 0 0 15.2 4l-.6 1.2a16.8 16.8 0 0 0-5.2 0L8.8 4a18.2 18.2 0 0 0-4.5 1.3C1.5 9.5.7 13.6 1.1 17.6a18.5 18.5 0 0 0 5.5 2.8l1.2-2a11.9 11.9 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.2-12.3ZM8.7 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>Discord szerver ↗</a><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></nav></header>
+  <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><nav class="header-actions" aria-label="Külső hivatkozások"><a class="skin discord-link" href="https://discord.gg/DZ4j5mnp6" target="_blank" rel="noopener noreferrer" aria-label="Csatlakozás a Discord szerverhez"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 5.3A18.3 18.3 0 0 0 15.2 4l-.6 1.2a16.8 16.8 0 0 0-5.2 0L8.8 4a18.2 18.2 0 0 0-4.5 1.3C1.5 9.5.7 13.6 1.1 17.6a18.5 18.5 0 0 0 5.5 2.8l1.2-2a11.9 11.9 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.2-12.3ZM8.7 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>Discord szerver ↗</a><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></nav></header>
+  <nav class="sign-hotspots" aria-label="Gyorshivatkozások a fatáblákon">
+    <a class="sign-hotspot sign-discord" href="https://discord.gg/DZ4j5mnp6" target="_blank" rel="noopener noreferrer" aria-label="Discord meghívó" title="Discord meghívó"></a>
+    <a class="sign-hotspot sign-skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer" aria-label="Skin beállítás" title="Skin beállítás"></a>
+  </nav>
   <div class="servers">
     <section class="server" id="mainCard" aria-labelledby="mainTitle">
       <div class="server-head"><h2 id="mainTitle">Fő szerver</h2><span class="pill">CS2 · FŐ</span></div>
@@ -148,7 +158,7 @@ h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shad
 
     // Copy a console-ready command; setting password first avoids a race with connect.
     byId(`${key}Copy`).addEventListener('click', async () => {
-      const command = `password ${config.password}; connect ${address}`;
+      const command = `connect ${address}`;
       try {
         if (navigator.clipboard && window.isSecureContext) {
           await navigator.clipboard.writeText(command);
