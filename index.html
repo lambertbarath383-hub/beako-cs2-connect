@@ -96,14 +96,14 @@ h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shad
       <p class="address" id="mainAddress">212.73.137.7:27914</p>
       <div class="stats"><div class="stat"><div class="label">Állapot</div><div class="state-line"><span class="dot" id="mainDot"></span><strong class="value" id="mainState">Betöltés…</strong></div></div><div class="stat"><div class="label">Játékosok</div><strong class="value" id="mainPlayers">— / 16</strong></div></div>
       <div class="map"><img id="mainMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_mirage_radar_psd.png" alt="Fő szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="mainMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
-      <div class="actions"><a class="btn join" id="mainConnect" href="steam://connect/212.73.137.7:27914">Csatlakozás</a><button class="btn copy" id="mainCopy" type="button">Csatlakozási parancs másolása</button></div>
+      <div class="actions"><a class="btn join" id="mainConnect" href="steam://connect/212.73.137.7:27914">Csatlakozás</a><button class="btn copy" id="mainCopy" type="button">IP-cím másolása</button></div>
     </section>
     <section class="server" id="secondaryCard" aria-labelledby="secondaryTitle">
       <div class="server-head"><h2 id="secondaryTitle">Másodlagos szerver</h2><span class="pill">CS2 · 2. SZERVER</span></div>
       <p class="address" id="secondaryAddress">212.73.137.40:27381</p>
       <div class="stats"><div class="stat"><div class="label">Állapot</div><div class="state-line"><span class="dot" id="secondaryDot"></span><strong class="value" id="secondaryState">Betöltés…</strong></div></div><div class="stat"><div class="label">Játékosok</div><strong class="value" id="secondaryPlayers">— / 16</strong></div></div>
       <div class="map"><img id="secondaryMapImage" src="https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/main/images/radars/de_nuke_radar_psd.png" alt="Másodlagos szerver pályatérképe"><div class="mapfoot"><strong class="mapname" id="secondaryMapName">Pályaadatra vár</strong><span class="maplabel">AKTUÁLIS PÁLYA</span></div></div>
-      <div class="actions"><a class="btn join" id="secondaryConnect" href="steam://connect/212.73.137.40:27381">Csatlakozás</a><button class="btn copy" id="secondaryCopy" type="button">Csatlakozási parancs másolása</button></div>
+      <div class="actions"><a class="btn join" id="secondaryConnect" href="steam://connect/212.73.137.40:27381">Csatlakozás</a><button class="btn copy" id="secondaryCopy" type="button">IP-cím másolása</button></div>
     </section>
   </div>
   <div class="bottom"><div class="error" id="loadError" role="status" aria-live="polite"></div></div>
@@ -172,30 +172,37 @@ h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shad
       // Do not prevent navigation: the browser hands the URI to Steam.
     });
 
-    // Copy a console-ready command; setting password first avoids a race with connect.
+    // Copy the exact server address (IP:port), not a console command.
     byId(`${key}Copy`).addEventListener('click', async () => {
-      const command = `connect ${address}`;
+      let copied = false;
       try {
         if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(command);
-        } else {
-          throw new Error('Clipboard API unavailable');
+          await navigator.clipboard.writeText(address);
+          copied = true;
         }
-        showToast('Csatlakozási parancs kimásolva. Illeszd be a CS2 konzoljába.');
-      } catch (_) {
+      } catch (_) {}
+
+      // Fallback for browsers or hosting contexts where Clipboard API is unavailable.
+      if (!copied) {
         const field = document.createElement('textarea');
-        field.value = command;
+        field.value = address;
         field.setAttribute('readonly', '');
+        field.setAttribute('aria-hidden', 'true');
         field.style.position = 'fixed';
-        field.style.left = '-9999px';
+        field.style.opacity = '0';
+        field.style.pointerEvents = 'none';
+        field.style.left = '0';
+        field.style.top = '0';
         document.body.appendChild(field);
-        field.focus(); field.select(); field.setSelectionRange(0, field.value.length);
-        let ok = false;
-        try { ok = document.execCommand('copy'); } catch (_) {}
+        field.focus();
+        field.select();
+        field.setSelectionRange(0, field.value.length);
+        try { copied = document.execCommand('copy'); } catch (_) {}
         field.remove();
-        if (ok) showToast('Csatlakozási parancs kimásolva. Illeszd be a CS2 konzoljába.');
-        else showToast('Másolás nem sikerült. Szerver címe: ' + address);
       }
+
+      if (copied) showToast('Szerver IP-címe kimásolva: ' + address);
+      else showToast('Nem sikerült másolni. Szerver címe: ' + address);
     });
   }
   function renderServer(key, data) {
