@@ -7,89 +7,16 @@
 <meta name="theme-color" content="#11131b">
 <title>Beako Manager — CS2 szerverek</title>
 <style>
-:root{color-scheme:dark;--bg:#080f29;--panel:rgba(7,16,43,.84);--line:rgba(194,211,255,.42);--muted:#c0c9e6;--text:#f8f7ff;--accent:#a6a5ff;--green:#75f0bd;--red:#ff899b;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-*{box-sizing:border-box}
-html{width:100%;height:100%;min-height:0;overflow:hidden;background:#080f29}
-body{margin:0;width:100%;height:100%;min-height:0;overflow:hidden;position:relative;background-color:var(--bg);background-image:linear-gradient(180deg,rgba(5,10,31,.02),rgba(5,10,31,.04) 55%,rgba(5,10,31,.12)),url("beako-christmas-bg.png");background-size:cover;background-position:center center;background-repeat:no-repeat;background-attachment:fixed;color:var(--text);padding:0}
-body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 14% 39%,rgba(255,190,105,.18),transparent 21%),radial-gradient(ellipse at 15% 9%,rgba(255,220,125,.20),transparent 10%);animation:treeGlow 5.8s ease-in-out infinite alternate}
-@keyframes treeGlow{0%{opacity:.42;filter:brightness(.85)}100%{opacity:1;filter:brightness(1.22)}}
-.wrap{width:100%;height:100%;max-width:none;min-height:0;aspect-ratio:auto;margin:0;position:relative;z-index:3;overflow:hidden}
-.top{display:none}
-.brand{font-size:11px;letter-spacing:.18em;font-weight:900;color:#f6d9a0;text-shadow:0 0 16px rgba(255,199,115,.45)}
-.topnote{font-size:12px;color:var(--muted)}
-h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shadow:0 2px 20px #020719}
-.header-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.skin{color:#f4efff;font-size:12px;font-weight:750;text-decoration:none;border:1px solid rgba(224,226,255,.38);background:rgba(12,20,49,.72);backdrop-filter:blur(12px);padding:10px 13px;border-radius:12px;box-shadow:0 8px 26px rgba(0,0,0,.18);transition:transform .25s,border-color .25s,background .25s,box-shadow .25s}
-.skin:hover{transform:translateY(-2px);border-color:#ffdca0;background:rgba(38,40,78,.88);box-shadow:0 0 22px rgba(255,205,128,.2)}
-.discord-link{display:inline-flex;align-items:center;gap:8px}.discord-link svg{width:17px;height:17px;flex:none}
-.servers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3.2%;width:56.2%;margin:0;position:absolute;top:25.7%;left:22.8%;transform:none;align-items:start}
-.server{min-width:0;min-height:0;position:relative;overflow:hidden;background:rgba(5,15,42,.94);border:1px solid rgba(190,211,255,.68);border-radius:22px;padding:clamp(15px,1.35vw,23px);box-shadow:0 12px 34px rgba(0,0,0,.34),0 0 22px rgba(151,177,255,.22),inset 0 1px 0 rgba(255,255,255,.10);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:cardEnter .8s cubic-bezier(.2,.75,.25,1) both;transition:transform .28s,border-color .28s,box-shadow .28s}
-.server:nth-child(2){animation-delay:.13s}
-.server:first-child,.server:nth-child(2){left:auto}
-.server:before{content:none}
-.server:hover,.server:focus-within{transform:translateY(-3px);border-color:rgba(220,231,255,.9);box-shadow:0 16px 38px rgba(0,0,0,.4),0 0 28px rgba(151,177,255,.3),inset 0 1px 0 rgba(255,255,255,.12)}
-@keyframes cardEnter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
-.server-head{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative}
-.server h2{font-size:16px;margin:0;color:#fff7e9;text-shadow:0 1px 12px #020719}
-.pill{font-size:9px;font-weight:900;letter-spacing:.09em;color:#e5eaff;background:rgba(89,111,180,.35);border:1px solid rgba(180,197,255,.42);border-radius:999px;padding:6px 8px;white-space:nowrap}
-.address{font:11px ui-monospace,SFMono-Regular,Consolas,monospace;color:#dce5ff;margin:8px 0 10px;position:relative}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative}
-.stat{padding:8px 10px;background:rgba(7,17,45,.88);border:1px solid rgba(175,195,255,.34);border-radius:9px;min-width:0;transition:background .2s,border-color .2s}
-.server:hover .stat{background:rgba(12,27,63,.94);border-color:rgba(194,211,255,.48)}
-.label{font-size:10px;color:#c4cde8;margin-bottom:4px}.value{font-size:14px;font-weight:850;overflow-wrap:anywhere}
-.state-line{display:flex;align-items:center;gap:8px}.dot{width:8px;height:8px;border-radius:50%;background:#9aa4c2;flex:none}.dot.online{background:var(--green);box-shadow:0 0 0 3px rgba(117,240,189,.12),0 0 13px #57d6a0aa;animation:onlinePulse 2.2s ease-in-out infinite}.dot.offline{background:var(--red);box-shadow:0 0 10px #ff7d8955}
-@keyframes onlinePulse{50%{box-shadow:0 0 0 5px rgba(117,240,189,.04),0 0 18px #57d6a0}}
-.map{position:relative;margin-top:9px;border:1px solid rgba(176,196,255,.34);border-radius:10px;overflow:hidden;background:rgba(7,17,45,.88)}
-.map img{display:block;width:100%;height:clamp(48px,4.9vw,83px);object-fit:contain;padding:4px;background:rgba(9,22,51,.92)}
-.mapfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 10px;border-top:1px solid rgba(176,196,255,.24);background:rgba(7,17,45,.92)}
-.mapname{font-size:12px;font-weight:850}.maplabel{font-size:9px;letter-spacing:.08em;color:#b9c7e9}
-.actions{display:flex;gap:7px;margin-top:9px;position:relative}
-.btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 11px;border-radius:9px;border:1px solid transparent;font:750 11px inherit;text-decoration:none;cursor:pointer;transition:transform .18s,background .18s,border-color .18s,box-shadow .18s}
-.btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(0) scale(.98)}
-.join{background:linear-gradient(110deg,#7e8cff,#9d8eff);color:white;flex:1;box-shadow:0 5px 18px rgba(112,126,255,.25)}.join:hover{background:linear-gradient(110deg,#98a3ff,#b5a2ff);box-shadow:0 7px 22px rgba(135,143,255,.38)}
-.copy{background:#1a2a50;color:#f3f5ff;border-color:rgba(203,216,255,.28)}.copy:hover{background:#263a68;border-color:rgba(230,232,255,.55)}
-.bottom{margin:12px auto 0;width:min(850px,78vw);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.error{color:#ffd0d5;font-size:11px;min-height:16px;text-shadow:0 1px 8px #000}.hidden{display:none!important}
-.sign-hotspots{position:absolute;inset:0;z-index:7;pointer-events:none}
-.sign-hotspot{position:absolute;display:block;pointer-events:auto;left:78.8%;width:20%;border-radius:22px;background:transparent;text-decoration:none;outline:none;cursor:pointer}
-.sign-discord{top:37.5%;height:14.3%}
-.sign-skin{top:54.3%;height:14.5%}
-.sign-hotspot:focus-visible{outline:3px solid #ffe4a8;outline-offset:3px;background:rgba(255,230,170,.08)}
-@media(max-width:720px){.sign-hotspots{display:none}}
-.toast{position:fixed;left:50%;bottom:22px;z-index:20;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:rgba(18,27,57,.94);border:1px solid rgba(197,211,255,.48);color:#fff;border-radius:11px;padding:12px 16px;font-size:13px;box-shadow:0 10px 40px #0008;transition:.22s;max-width:calc(100vw - 28px);text-align:center;backdrop-filter:blur(12px)}.toast.show{opacity:1;transform:translate(-50%,0)}
-.snow-layer{position:fixed;inset:0;overflow:hidden;pointer-events:none}.snow-back{z-index:2;opacity:.72}.snow-front{z-index:5;opacity:.92}.snowflake{position:absolute;top:-12vh;left:var(--x);width:var(--size);height:var(--size);border-radius:50%;background:rgba(244,249,255,.94);box-shadow:0 0 7px rgba(210,231,255,.62);opacity:var(--alpha);animation:snowFall var(--duration) linear var(--delay) infinite;will-change:transform}
-.snow-back .snowflake{filter:blur(.45px)}.snow-front .snowflake{box-shadow:0 0 9px rgba(220,237,255,.72)}
-@keyframes snowFall{0%{transform:translate3d(0,-12vh,0)}25%{transform:translate3d(22px,22vh,0)}50%{transform:translate3d(-13px,48vh,0)}75%{transform:translate3d(18px,74vh,0)}100%{transform:translate3d(-8px,112vh,0)}}
-.single-server .servers{grid-template-columns:minmax(0,1fr);max-width:460px;width:27%;left:40.7%;top:25.7%;transform:none}.single-server .server{width:100%}.single-server .bottom{width:min(380px,88vw)}
-@media(max-width:1050px){
- .server{border-radius:17px;padding:clamp(11px,1.25vw,18px)}
- .server h2{font-size:clamp(11px,1.15vw,16px)}
- .address{font-size:clamp(8px,.68vw,11px);margin:5px 0 7px}
- .pill{font-size:clamp(7px,.55vw,9px);padding:4px 6px}
- .stat{padding:6px 7px}.label{font-size:clamp(8px,.6vw,10px)}.value{font-size:clamp(10px,.85vw,14px)}
- .map{margin-top:6px}.mapfoot{padding:5px 7px}.mapname{font-size:10px}.maplabel{font-size:8px}
- .btn{min-height:30px;font-size:clamp(8px,.65vw,11px);padding:0 7px}
-}
-@media(max-width:720px){
- body{background-size:cover;background-position:center center;padding:0;overflow:hidden}
- .wrap{height:100%;min-height:0;aspect-ratio:auto;padding:0}
- .servers,.single-server .servers{position:absolute;left:4%;top:23%;transform:none;grid-template-columns:minmax(0,1fr);width:92%;max-width:none;gap:8px;margin:0}
- .server,.server:first-child,.server:nth-child(2){left:auto;min-height:0;padding:9px 11px;background:rgba(5,15,42,.95);border:1px solid rgba(194,211,255,.65);border-radius:13px;box-shadow:0 8px 22px rgba(0,0,0,.38),0 0 14px rgba(151,177,255,.2)}
- .server h2{font-size:14px}.address{font-size:9px;margin:4px 0 5px}.pill{font-size:7px;padding:3px 5px}.stats{gap:5px}.stat{padding:5px 7px}.label{font-size:8px}.value{font-size:11px}.map{margin-top:5px}.map img{height:34px}.mapfoot{padding:4px 7px}.mapname{font-size:9px}.maplabel{font-size:7px}.actions{gap:5px;margin-top:5px}.btn{min-height:27px;font-size:9px;padding:0 6px}
- .single-server .servers{width:62%;left:19%;top:27%;max-width:none}.bottom,.single-server .bottom{display:none}.sign-hotspots{display:none}
-}
-@media(max-width:420px){.servers,.single-server .servers{width:94%;left:3%;top:22%}.server{padding:8px 9px}.server h2{font-size:13px}.actions{gap:4px}.btn{font-size:8px;padding:0 5px}.copy{max-width:54%}.single-server .servers{width:72%;left:14%}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.snow-layer{display:none}}
+:root{color-scheme:dark;--bg:#11131b;--panel:#1a1d29;--card:#202433;--line:#343a50;--muted:#a9b0c7;--text:#f4f6ff;--accent:#7888ff;--green:#57d6a0;--red:#ff7d89;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;min-height:100vh;background-color:var(--bg);background-image:linear-gradient(180deg,rgba(12,15,24,.12),rgba(12,15,24,.10) 48%,rgba(12,15,24,.22)),url("beako-meadow-bg.png");background-size:cover;background-position:center center;background-repeat:no-repeat;background-attachment:fixed;color:var(--text);padding:28px 16px 40px}.wrap{width:min(1120px,100%);margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px}.brand{font-size:12px;letter-spacing:.13em;font-weight:850;color:#c9d0ff}.topnote{font-size:12px;color:var(--muted)}h1{font-size:clamp(28px,4vw,38px);letter-spacing:-.035em;margin:8px 0 0}.servers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.server{min-width:0;background:linear-gradient(145deg,rgba(30,35,51,.24),rgba(17,20,31,.18) 75%);border:1px solid rgba(220,228,255,.42);border-top-color:rgba(255,255,255,.58);border-radius:18px;padding:20px;box-shadow:0 18px 55px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.12);transition:background .22s ease,border-color .22s ease,box-shadow .22s ease;}
+.server:hover,.server:focus-within{background:linear-gradient(145deg,rgba(10,12,19,.91),rgba(8,10,16,.88) 75%);border-color:rgba(207,179,105,.72);box-shadow:0 20px 60px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.08)}.server-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.server h2{font-size:18px;margin:0}.pill{font-size:10px;font-weight:850;letter-spacing:.09em;color:#d6dcff;background:#333b5c;border:1px solid #424c75;border-radius:999px;padding:7px 9px;white-space:nowrap}.address{font:13px ui-monospace,SFMono-Regular,Consolas,monospace;color:#d9defa;margin:10px 0 18px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:12px 13px;background:#151823;border:1px solid #2b3042;border-radius:12px;min-width:0}.label{font-size:11px;color:var(--muted);margin-bottom:6px}.value{font-size:16px;font-weight:800;overflow-wrap:anywhere}.state-line{display:flex;align-items:center;gap:8px}.dot{width:8px;height:8px;border-radius:50%;background:#8a90a4;flex:none}.dot.online{background:var(--green);box-shadow:0 0 10px #57d6a055}.dot.offline{background:var(--red)}.map{position:relative;margin-top:13px;border:1px solid #343a50;border-radius:13px;overflow:hidden;background:#151823}.map img{display:block;width:100%;height:190px;object-fit:contain;padding:8px;background:linear-gradient(145deg,#171a26,#1b2030)}.mapfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 13px;border-top:1px solid #2c3143}.mapname{font-size:14px;font-weight:800}.maplabel{font-size:10px;letter-spacing:.08em;color:var(--muted)}.actions{display:flex;gap:9px;margin-top:14px}.btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:0 16px;border-radius:10px;border:1px solid transparent;font:750 13px inherit;text-decoration:none;cursor:pointer;transition:transform .12s,background .12s}.btn:active{transform:translateY(1px)}.join{background:var(--accent);color:white;flex:1}.join:hover{background:#8997ff}.copy{background:#30364a;color:#edf0ff;border-color:#414862}.copy:hover{background:#3b435c}.bottom{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.skin{color:#dce0ff;font-size:13px;text-decoration:none;border:1px solid var(--line);background:#1a1d29;padding:11px 14px;border-radius:10px}.skin:hover{border-color:#6c79d8}.header-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.discord-link{display:inline-flex;align-items:center;gap:8px}.discord-link svg{width:17px;height:17px;flex:none}.error{color:#ffabb3;font-size:12px;min-height:16px}.hidden{display:none!important}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:#252b3d;border:1px solid #4a5271;color:#fff;border-radius:11px;padding:12px 16px;font-size:13px;box-shadow:0 10px 40px #0006;transition:.2s;max-width:calc(100vw - 28px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}@media(min-width:1500px){.wrap{transform:translateX(76px)}}@media(max-width:720px){body{padding:18px 12px 30px;background-attachment:scroll;background-position:center top;background-size:auto 100vh}.top{align-items:flex-start;flex-direction:column;margin-bottom:18px}.servers{grid-template-columns:1fr}.server{padding:16px}.map img{height:170px}.bottom{align-items:flex-start;flex-direction:column}.skin{width:100%;text-align:center}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.single-server .servers{grid-template-columns:minmax(0,1fr);max-width:760px}
+.single-server .server{width:100%}
 </style>
 </head>
 <body>
-<div class="snow-layer snow-back" id="snowBack" aria-hidden="true"></div>
 <main class="wrap">
-  <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div></header>
-  <nav class="sign-hotspots" aria-label="Gyorshivatkozások a fatáblákon">
-    <a class="sign-hotspot sign-discord" href="https://discord.gg/DZ4j5mnp6" target="_blank" rel="noopener noreferrer" aria-label="Discord meghívó" title="Discord meghívó"></a>
-    <a class="sign-hotspot sign-skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer" aria-label="Skin beállítás" title="Skin beállítás"></a>
-  </nav>
+  <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><nav class="header-actions" aria-label="Külső hivatkozások"><a class="skin discord-link" href="https://discord.gg/DZ4j5mnp6" target="_blank" rel="noopener noreferrer" aria-label="Csatlakozás a Discord szerverhez"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 5.3A18.3 18.3 0 0 0 15.2 4l-.6 1.2a16.8 16.8 0 0 0-5.2 0L8.8 4a18.2 18.2 0 0 0-4.5 1.3C1.5 9.5.7 13.6 1.1 17.6a18.5 18.5 0 0 0 5.5 2.8l1.2-2a11.9 11.9 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.2-12.3ZM8.7 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>Discord szerver ↗</a><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></nav></header>
   <div class="servers">
     <section class="server" id="mainCard" aria-labelledby="mainTitle">
       <div class="server-head"><h2 id="mainTitle">Fő szerver</h2><span class="pill">CS2 · FŐ</span></div>
@@ -108,42 +35,10 @@ h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shad
   </div>
   <div class="bottom"><div class="error" id="loadError" role="status" aria-live="polite"></div></div>
 </main>
-<div class="snow-layer snow-front" id="snowFront" aria-hidden="true"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 (() => {
   'use strict';
-  // GitHub Pages clean URL handling from the supplied working reference.
-  const route = window.location.pathname.replace(/\/+$/, '').toLowerCase();
-  if (route === '/masodlagosszerver') {
-    document.body.classList.add('single-server');
-    const mainCard = document.getElementById('mainCard');
-    if (mainCard) mainCard.hidden = true;
-  } else if (route === '/foszerver') {
-    document.body.classList.add('single-server');
-    const secondaryCard = document.getElementById('secondaryCard');
-    if (secondaryCard) secondaryCard.hidden = true;
-  }
-
-  // Lightweight CSS-driven snow: particles are created once and animated by transforms.
-  function createSnow(layerId, count, sizeMin, sizeMax, durationMin, durationMax) {
-    const layer = document.getElementById(layerId);
-    if (!layer) return;
-    const fragment = document.createDocumentFragment();
-    for (let i = 0; i < count; i++) {
-      const flake = document.createElement('i');
-      flake.className = 'snowflake';
-      flake.style.setProperty('--x', `${Math.random() * 100}%`);
-      flake.style.setProperty('--size', `${sizeMin + Math.random() * (sizeMax - sizeMin)}px`);
-      flake.style.setProperty('--duration', `${durationMin + Math.random() * (durationMax - durationMin)}s`);
-      flake.style.setProperty('--delay', `${-Math.random() * durationMax}s`);
-      flake.style.setProperty('--alpha', `${.35 + Math.random() * .6}`);
-      fragment.appendChild(flake);
-    }
-    layer.appendChild(fragment);
-  }
-  createSnow('snowBack', 34, 2, 3.5, 13, 23);
-  createSnow('snowFront', 20, 3, 5, 8, 16);
   // GitHub Pages serves these static folders as clean URLs.
   const route = window.location.pathname.replace(/\/+$/, '').toLowerCase();
   if (route === '/masodlagosszerver') {
