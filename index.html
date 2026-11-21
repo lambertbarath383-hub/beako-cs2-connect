@@ -12,11 +12,145 @@
 
 .single-server .servers{grid-template-columns:minmax(0,1fr);max-width:760px}
 .single-server .server{width:100%}
+
+/* Modern backgroundless Beako layout: visual layer only */
+html,body{width:100%;min-height:100%;margin:0}
+body{
+  min-height:100svh;
+  overflow:hidden;
+  padding:28px 24px;
+  color:#f5f6ff;
+  background:
+    radial-gradient(ellipse at 50% 38%,rgba(75,64,155,.24),transparent 43%),
+    radial-gradient(ellipse at 50% 100%,rgba(48,77,153,.15),transparent 55%),
+    linear-gradient(145deg,#080b18 0%,#0d1226 52%,#090d1b 100%);
+  background-image:
+    radial-gradient(ellipse at 50% 38%,rgba(75,64,155,.24),transparent 43%),
+    radial-gradient(ellipse at 50% 100%,rgba(48,77,153,.15),transparent 55%),
+    linear-gradient(145deg,#080b18 0%,#0d1226 52%,#090d1b 100%);
+  background-attachment:fixed;
+}
+.wrap{
+  width:min(1040px,100%);
+  min-height:calc(100svh - 56px);
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:24px;
+  transform:none!important;
+  position:relative;
+  z-index:1;
+}
+.top{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  margin:0;
+  text-align:center;
+}
+.brand{font-size:11px;letter-spacing:.22em;color:#a99aff}
+h1{font-size:clamp(30px,4vw,44px);font-weight:850;letter-spacing:-.045em;margin:5px 0 0}
+.header-actions{justify-content:center;gap:10px}
+.skin{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:0 18px;
+  color:#e7e9ff;
+  font-size:13px;
+  font-weight:700;
+  border:1px solid rgba(157,145,255,.42);
+  border-radius:12px;
+  background:rgba(18,23,45,.78);
+  box-shadow:0 8px 28px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.06);
+  transition:transform .18s,border-color .18s,background .18s,box-shadow .18s;
+}
+.skin:hover{transform:translateY(-2px);border-color:#a99aff;background:#20264a;box-shadow:0 0 22px rgba(139,116,255,.2)}
+.servers{
+  width:min(100%,980px);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+  align-items:stretch;
+}
+.server{
+  padding:21px;
+  border:1px solid rgba(151,137,255,.65);
+  border-radius:20px;
+  background:linear-gradient(145deg,rgba(20,26,51,.96),rgba(10,15,32,.97));
+  box-shadow:0 0 0 1px rgba(132,116,255,.12),0 0 28px rgba(119,91,255,.18),0 20px 55px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.07);
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+.server:hover,.server:focus-within{
+  transform:translateY(-3px);
+  border-color:#b6a7ff;
+  background:linear-gradient(145deg,rgba(23,28,56,.98),rgba(10,15,32,.99));
+  box-shadow:0 0 0 1px rgba(163,147,255,.2),0 0 34px rgba(119,91,255,.27),0 24px 58px rgba(0,0,0,.4);
+}
+.server h2{font-size:19px;font-weight:800;letter-spacing:-.02em}
+.pill{background:#272d50;border-color:#55528c;color:#e5e1ff}
+.address{color:#c4c9ff;margin:12px 0 15px}
+.stat{background:#0b1125;border-color:#293253}
+.map{background:#0b1125;border-color:#30395c}
+.map img{height:150px;background:linear-gradient(145deg,#0a1022,#101a35)}
+.mapfoot{border-top-color:#293253}
+.join{background:linear-gradient(100deg,#8c69ff,#7357e8);box-shadow:0 5px 18px rgba(124,91,255,.24)}
+.join:hover{background:linear-gradient(100deg,#a18aff,#826aff)}
+.copy{background:#202945;border-color:#414d76}
+.copy:hover{background:#2a3659}
+.bottom{justify-content:center;margin:0;min-height:16px}
+.error{text-align:center}
+.toast{z-index:5;background:#171f3b;border-color:#6960a9}
+#snowfall{
+  position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;
+}
+.snowflake{
+  position:absolute;top:-12px;left:var(--left);
+  width:var(--size);height:var(--size);border-radius:50%;
+  background:rgba(235,241,255,var(--opacity));
+  box-shadow:0 0 7px rgba(205,220,255,.35);
+  animation:snowfall var(--duration) linear var(--delay) infinite;
+  will-change:transform;
+}
+@keyframes snowfall{
+  0%{transform:translate3d(0,-3vh,0)}
+  50%{transform:translate3d(var(--drift),52vh,0)}
+  100%{transform:translate3d(calc(var(--drift) * -0.45),108vh,0)}
+}
+@media(max-width:760px){
+  body{overflow:auto;padding:22px 14px;min-height:100svh}
+  .wrap{min-height:calc(100svh - 44px);gap:20px}
+  .top{gap:13px}
+  .servers{grid-template-columns:minmax(0,1fr);max-width:560px;gap:16px}
+  .server{padding:17px}
+  .map img{height:135px}
+  .actions{flex-wrap:wrap}
+  .actions .btn{min-width:0}
+  .bottom{padding-bottom:8px}
+}
+@media(max-height:760px) and (min-width:761px){
+  body{overflow:auto;padding-top:18px;padding-bottom:18px}
+  .wrap{min-height:calc(100svh - 36px);gap:15px}
+  .map img{height:115px}
+  .server{padding:16px}
+  .address{margin:8px 0 10px}
+}
+@media(prefers-reduced-motion:reduce){
+  .snowflake{animation:none;display:none}
+  .server,.skin{transition:none}
+}
+
 </style>
 </head>
 <body>
+<div id="snowfall" aria-hidden="true"></div>
 <main class="wrap">
-  <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><nav class="header-actions" aria-label="Külső hivatkozások"><a class="skin discord-link" href="https://discord.gg/NK3gEzp8Sq" target="_blank" rel="noopener noreferrer" aria-label="Csatlakozás a Discord szerverhez"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 5.3A18.3 18.3 0 0 0 15.2 4l-.6 1.2a16.8 16.8 0 0 0-5.2 0L8.8 4a18.2 18.2 0 0 0-4.5 1.3C1.5 9.5.7 13.6 1.1 17.6a18.5 18.5 0 0 0 5.5 2.8l1.2-2a11.9 11.9 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.2-12.3ZM8.7 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>Discord szerver ↗</a><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></nav></header>
+  <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><nav class="header-actions" aria-label="Külső hivatkozások"><a class="skin discord-link" href="https://discord.gg/DZ4j5mnp6" target="_blank" rel="noopener noreferrer" aria-label="Csatlakozás a Discord szerverhez"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 5.3A18.3 18.3 0 0 0 15.2 4l-.6 1.2a16.8 16.8 0 0 0-5.2 0L8.8 4a18.2 18.2 0 0 0-4.5 1.3C1.5 9.5.7 13.6 1.1 17.6a18.5 18.5 0 0 0 5.5 2.8l1.2-2a11.9 11.9 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.2-12.3ZM8.7 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>Discord szerver ↗</a><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></nav></header>
   <div class="servers">
     <section class="server" id="mainCard" aria-labelledby="mainTitle">
       <div class="server-head"><h2 id="mainTitle">Fő szerver</h2><span class="pill">CS2 · FŐ</span></div>
@@ -147,5 +281,25 @@
   window.setInterval(refreshStatus, 15000);
 })();
 </script>
+
+<script>
+(() => {
+  const layer = document.getElementById('snowfall');
+  if (!layer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const count = Math.min(72, Math.max(36, Math.round(window.innerWidth / 22)));
+  for (let i = 0; i < count; i++) {
+    const flake = document.createElement('i');
+    flake.className = 'snowflake';
+    flake.style.setProperty('--left', `${Math.random() * 100}%`);
+    flake.style.setProperty('--size', `${2 + Math.random() * 3.2}px`);
+    flake.style.setProperty('--opacity', `${0.28 + Math.random() * 0.55}`);
+    flake.style.setProperty('--duration', `${9 + Math.random() * 13}s`);
+    flake.style.setProperty('--delay', `${-Math.random() * 22}s`);
+    flake.style.setProperty('--drift', `${-55 + Math.random() * 110}px`);
+    layer.appendChild(flake);
+  }
+})();
+</script>
+
 </body>
 </html>
