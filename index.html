@@ -9,11 +9,11 @@
 <style>
 :root{color-scheme:dark;--bg:#080f29;--panel:rgba(7,16,43,.84);--line:rgba(194,211,255,.42);--muted:#c0c9e6;--text:#f8f7ff;--accent:#a6a5ff;--green:#75f0bd;--red:#ff899b;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
 *{box-sizing:border-box}
-html{min-height:100%;background:#080f29}
-body{margin:0;min-height:100vh;overflow-x:hidden;position:relative;background-color:var(--bg);background-image:linear-gradient(180deg,rgba(5,10,31,.02),rgba(5,10,31,.04) 55%,rgba(5,10,31,.12)),url("beako-christmas-bg.png");background-size:100% auto;background-position:center top;background-repeat:no-repeat;background-attachment:scroll;color:var(--text);padding:0 0 34px}
+html{width:100%;height:100%;min-height:0;overflow:hidden;background:#080f29}
+body{margin:0;width:100%;height:100%;min-height:0;overflow:hidden;position:relative;background-color:var(--bg);background-image:linear-gradient(180deg,rgba(5,10,31,.02),rgba(5,10,31,.04) 55%,rgba(5,10,31,.12)),url("beako-christmas-bg.png");background-size:cover;background-position:center center;background-repeat:no-repeat;background-attachment:fixed;color:var(--text);padding:0}
 body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 14% 39%,rgba(255,190,105,.18),transparent 21%),radial-gradient(ellipse at 15% 9%,rgba(255,220,125,.20),transparent 10%);animation:treeGlow 5.8s ease-in-out infinite alternate}
 @keyframes treeGlow{0%{opacity:.42;filter:brightness(.85)}100%{opacity:1;filter:brightness(1.22)}}
-.wrap{width:100%;max-width:none;min-height:56.28vw;aspect-ratio:1672 / 941;margin:0;position:relative;z-index:3}
+.wrap{width:100%;height:100%;max-width:none;min-height:0;aspect-ratio:auto;margin:0;position:relative;z-index:3;overflow:hidden}
 .top{display:none}
 .brand{font-size:11px;letter-spacing:.18em;font-weight:900;color:#f6d9a0;text-shadow:0 0 16px rgba(255,199,115,.45)}
 .topnote{font-size:12px;color:var(--muted)}
@@ -22,7 +22,7 @@ h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shad
 .skin{color:#f4efff;font-size:12px;font-weight:750;text-decoration:none;border:1px solid rgba(224,226,255,.38);background:rgba(12,20,49,.72);backdrop-filter:blur(12px);padding:10px 13px;border-radius:12px;box-shadow:0 8px 26px rgba(0,0,0,.18);transition:transform .25s,border-color .25s,background .25s,box-shadow .25s}
 .skin:hover{transform:translateY(-2px);border-color:#ffdca0;background:rgba(38,40,78,.88);box-shadow:0 0 22px rgba(255,205,128,.2)}
 .discord-link{display:inline-flex;align-items:center;gap:8px}.discord-link svg{width:17px;height:17px;flex:none}
-.servers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3.2%;width:56.2%;margin:0;position:absolute;top:25.7%;left:25.6%;transform:none;align-items:start}
+.servers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3.2%;width:56.2%;margin:0;position:absolute;top:25.7%;left:22.8%;transform:none;align-items:start}
 .server{min-width:0;min-height:0;position:relative;overflow:hidden;background:rgba(5,15,42,.94);border:1px solid rgba(190,211,255,.68);border-radius:22px;padding:clamp(15px,1.35vw,23px);box-shadow:0 12px 34px rgba(0,0,0,.34),0 0 22px rgba(151,177,255,.22),inset 0 1px 0 rgba(255,255,255,.10);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:cardEnter .8s cubic-bezier(.2,.75,.25,1) both;transition:transform .28s,border-color .28s,box-shadow .28s}
 .server:nth-child(2){animation-delay:.13s}
 .server:first-child,.server:nth-child(2){left:auto}
@@ -60,7 +60,7 @@ h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shad
 .snow-layer{position:fixed;inset:0;overflow:hidden;pointer-events:none}.snow-back{z-index:2;opacity:.72}.snow-front{z-index:5;opacity:.92}.snowflake{position:absolute;top:-12vh;left:var(--x);width:var(--size);height:var(--size);border-radius:50%;background:rgba(244,249,255,.94);box-shadow:0 0 7px rgba(210,231,255,.62);opacity:var(--alpha);animation:snowFall var(--duration) linear var(--delay) infinite;will-change:transform}
 .snow-back .snowflake{filter:blur(.45px)}.snow-front .snowflake{box-shadow:0 0 9px rgba(220,237,255,.72)}
 @keyframes snowFall{0%{transform:translate3d(0,-12vh,0)}25%{transform:translate3d(22px,22vh,0)}50%{transform:translate3d(-13px,48vh,0)}75%{transform:translate3d(18px,74vh,0)}100%{transform:translate3d(-8px,112vh,0)}}
-.single-server .servers{grid-template-columns:minmax(0,1fr);max-width:460px;width:27%;left:43.5%;top:25.7%;transform:none}.single-server .server{width:100%}.single-server .bottom{width:min(380px,88vw)}
+.single-server .servers{grid-template-columns:minmax(0,1fr);max-width:460px;width:27%;left:40.7%;top:25.7%;transform:none}.single-server .server{width:100%}.single-server .bottom{width:min(380px,88vw)}
 @media(max-width:1050px){
  .server{border-radius:17px;padding:clamp(11px,1.25vw,18px)}
  .server h2{font-size:clamp(11px,1.15vw,16px)}
@@ -71,14 +71,14 @@ h1{font-size:clamp(23px,3vw,30px);letter-spacing:-.04em;margin:4px 0 0;text-shad
  .btn{min-height:30px;font-size:clamp(8px,.65vw,11px);padding:0 7px}
 }
 @media(max-width:720px){
- body{background-size:auto 640px;background-position:center top;min-height:100vh;padding:0 12px 28px}
- .wrap{min-height:100vh;aspect-ratio:auto;padding-top:290px}
- .servers,.single-server .servers{position:relative;left:auto;top:auto;transform:none;grid-template-columns:minmax(0,1fr);width:min(440px,94vw);gap:14px;margin:0 auto}
- .server,.server:first-child,.server:nth-child(2){left:auto;min-height:0;padding:16px 15px;background:rgba(5,15,42,.95);border:1px solid rgba(194,211,255,.65);border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.38),0 0 18px rgba(151,177,255,.2)}
- .server h2{font-size:16px}.address{font-size:11px}.label{font-size:10px}.value{font-size:14px}.map img{height:72px}
- .single-server .servers{width:min(440px,94vw);max-width:440px}.bottom,.single-server .bottom{width:min(440px,92vw)}.sign-hotspots{display:none}
+ body{background-size:cover;background-position:center center;padding:0;overflow:hidden}
+ .wrap{height:100%;min-height:0;aspect-ratio:auto;padding:0}
+ .servers,.single-server .servers{position:absolute;left:4%;top:23%;transform:none;grid-template-columns:minmax(0,1fr);width:92%;max-width:none;gap:8px;margin:0}
+ .server,.server:first-child,.server:nth-child(2){left:auto;min-height:0;padding:9px 11px;background:rgba(5,15,42,.95);border:1px solid rgba(194,211,255,.65);border-radius:13px;box-shadow:0 8px 22px rgba(0,0,0,.38),0 0 14px rgba(151,177,255,.2)}
+ .server h2{font-size:14px}.address{font-size:9px;margin:4px 0 5px}.pill{font-size:7px;padding:3px 5px}.stats{gap:5px}.stat{padding:5px 7px}.label{font-size:8px}.value{font-size:11px}.map{margin-top:5px}.map img{height:34px}.mapfoot{padding:4px 7px}.mapname{font-size:9px}.maplabel{font-size:7px}.actions{gap:5px;margin-top:5px}.btn{min-height:27px;font-size:9px;padding:0 6px}
+ .single-server .servers{width:62%;left:19%;top:27%;max-width:none}.bottom,.single-server .bottom{display:none}.sign-hotspots{display:none}
 }
-@media(max-width:420px){.wrap{padding-top:260px}.servers,.single-server .servers{width:94vw}.server{padding:14px 10px}.server h2{font-size:14px}.actions{gap:6px}.btn{font-size:10px;padding:0 8px}.copy{max-width:54%}}
+@media(max-width:420px){.servers,.single-server .servers{width:94%;left:3%;top:22%}.server{padding:8px 9px}.server h2{font-size:13px}.actions{gap:4px}.btn{font-size:8px;padding:0 5px}.copy{max-width:54%}.single-server .servers{width:72%;left:14%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.snow-layer{display:none}}
 </style>
 </head>
