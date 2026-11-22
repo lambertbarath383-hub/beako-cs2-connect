@@ -205,6 +205,18 @@ h1{font-size:clamp(30px,4vw,44px);font-weight:850;letter-spacing:-.045em;margin:
   }
   .header-actions > a { min-width: 0; }
 }
+
+/* Subtle Christmas atmosphere: warm string lights and drifting gold glints. */
+#christmas-lights{position:fixed;inset:0 0 auto;height:58px;z-index:3;pointer-events:none;overflow:hidden}
+#christmas-lights .wire{position:absolute;left:-2%;top:-17px;width:104%;height:43px;border-bottom:1px solid rgba(220,190,125,.42);border-radius:0 0 50% 50%;filter:drop-shadow(0 1px 2px rgba(255,205,120,.18))}
+.christmas-bulb{position:absolute;top:var(--bulb-top);left:var(--bulb-left);width:7px;height:10px;border-radius:45% 45% 50% 50%;background:var(--bulb-color);opacity:.78;box-shadow:0 0 5px 1px var(--bulb-glow),0 0 13px 2px var(--bulb-glow);transform:translateX(-50%);animation:bulb-glow var(--bulb-speed) ease-in-out var(--bulb-delay) infinite alternate}
+.christmas-bulb:before{content:"";position:absolute;width:3px;height:3px;left:2px;top:-2px;background:#b9a47a;border-radius:1px}
+@keyframes bulb-glow{from{opacity:.42;filter:brightness(.82)}to{opacity:1;filter:brightness(1.28)}}
+#gold-sparkles{position:fixed;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.gold-sparkle{position:absolute;left:var(--sparkle-left);top:var(--sparkle-top);width:var(--sparkle-size);height:var(--sparkle-size);border-radius:50%;background:#f4d58c;opacity:0;box-shadow:0 0 5px 1px rgba(244,213,140,.72),0 0 13px 2px rgba(229,183,94,.28);animation:gold-twinkle var(--sparkle-speed) ease-in-out var(--sparkle-delay) infinite}
+@keyframes gold-twinkle{0%,100%{opacity:0;transform:scale(.45)}45%{opacity:var(--sparkle-opacity);transform:scale(1.25)}65%{opacity:.12;transform:scale(.75)}}
+@media(prefers-reduced-motion:reduce){.christmas-bulb,.gold-sparkle{animation:none;opacity:.35}}
+
 </style>
 
 <style id="square-corners-override">
@@ -236,6 +248,8 @@ textarea,
 <body>
 <div id="snowfall-back" aria-hidden="true"></div>
 <div id="snowfall" aria-hidden="true"></div>
+<div id="gold-sparkles" aria-hidden="true"></div>
+<div id="christmas-lights" aria-hidden="true"><span class="wire"></span></div>
 <main class="wrap">
   <header class="top"><div><div class="brand">BEAKO MANAGER · CS2</div><h1>Szerverek</h1></div><nav class="header-actions" aria-label="Külső hivatkozások"><a class="skin discord-link" href="https://discord.gg/DZ4j5mnp6" target="_blank" rel="noopener noreferrer" aria-label="Csatlakozás a Discord szerverhez"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M19.7 5.3A18.3 18.3 0 0 0 15.2 4l-.6 1.2a16.8 16.8 0 0 0-5.2 0L8.8 4a18.2 18.2 0 0 0-4.5 1.3C1.5 9.5.7 13.6 1.1 17.6a18.5 18.5 0 0 0 5.5 2.8l1.2-2a11.9 11.9 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a12 12 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.2-12.3ZM8.7 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg>Discord szerver ↗</a><a class="skin" href="https://inventory.cstrike.app/" target="_blank" rel="noopener noreferrer">Skin beállítása ↗</a></nav></header>
   <div class="servers">
@@ -386,6 +400,44 @@ textarea,
     flake.style.setProperty('--drift', `${-55 + Math.random() * 110}px`);
     // A hópelyhek egy része a panelek mögött, másik része előtt hullik.
     (Math.random() < 0.62 ? backLayer : frontLayer).appendChild(flake);
+  }
+})();
+
+// Karácsonyi fényfüzér és visszafogott arany csillanások.
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const lights = document.getElementById('christmas-lights');
+  const sparkles = document.getElementById('gold-sparkles');
+  if (!lights || !sparkles) return;
+  const colors = [
+    ['#fff0c2','rgba(255,220,150,.75)'],
+    ['#ffe0a0','rgba(255,196,105,.7)'],
+    ['#fff8df','rgba(255,239,190,.72)']
+  ];
+  const bulbCount = Math.min(30, Math.max(16, Math.round(window.innerWidth / 58)));
+  for (let i = 0; i < bulbCount; i++) {
+    const bulb = document.createElement('i');
+    const color = colors[i % colors.length];
+    bulb.className = 'christmas-bulb';
+    bulb.style.setProperty('--bulb-left', `${(i + .5) / bulbCount * 100}%`);
+    bulb.style.setProperty('--bulb-top', `${17 + Math.sin(i * .8) * 7}px`);
+    bulb.style.setProperty('--bulb-color', color[0]);
+    bulb.style.setProperty('--bulb-glow', color[1]);
+    bulb.style.setProperty('--bulb-speed', `${2.1 + Math.random() * 2.4}s`);
+    bulb.style.setProperty('--bulb-delay', `${-Math.random() * 4}s`);
+    lights.appendChild(bulb);
+  }
+  const sparkleCount = Math.min(24, Math.max(12, Math.round(window.innerWidth / 75)));
+  for (let i = 0; i < sparkleCount; i++) {
+    const sparkle = document.createElement('i');
+    sparkle.className = 'gold-sparkle';
+    sparkle.style.setProperty('--sparkle-left', `${4 + Math.random() * 92}%`);
+    sparkle.style.setProperty('--sparkle-top', `${8 + Math.random() * 84}%`);
+    sparkle.style.setProperty('--sparkle-size', `${2 + Math.random() * 2.2}px`);
+    sparkle.style.setProperty('--sparkle-opacity', `${.28 + Math.random() * .42}`);
+    sparkle.style.setProperty('--sparkle-speed', `${3.5 + Math.random() * 5}s`);
+    sparkle.style.setProperty('--sparkle-delay', `${-Math.random() * 8}s`);
+    sparkles.appendChild(sparkle);
   }
 })();
 </script>
