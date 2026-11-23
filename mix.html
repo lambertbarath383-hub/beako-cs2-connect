@@ -28,10 +28,9 @@
 <section class="panel hidden" id="nextPanel"><h2 style="font-size:14px;margin:0">Csapatok elkészültek</h2></section>
 </main>
 <script>
-// A nyilvános HTTPS API-címet telepítéskor kell beállítani.
+// A MIX oldal és az API ugyanazon a domainen, a Cloudflare Worker mögött fut.
 // A form mezőinek tartalma NEM kerül elküldésre oldalbetöltéskor vagy frissítéskor.
-window.BEAKO_MIX_API = window.BEAKO_MIX_API || '';
-const API = String(window.BEAKO_MIX_API).replace(/\/$/, '');
+const API = '/mix';
 const $ = id => document.getElementById(id);
 let current = null;
 let submitting = false;
