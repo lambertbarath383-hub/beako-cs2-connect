@@ -22,23 +22,88 @@
 <section class="hero"><h1>MIX</h1></section>
 <section class="panel"><div class="queue-head"><h2>Várólista</h2><div class="count" id="count">0 / 10</div></div><div class="bar"><i id="progress"></i></div>
 <div id="queuePlayers" class="players"><p class="note">Betöltés…</p></div>
-<div id="joinForm"><div class="fields"><div><label for="steamId">Steam64ID</label><input id="steamId" inputmode="numeric" maxlength="17" placeholder="Steam64ID"></div><div><label for="playerName">Játékosnév</label><input id="playerName" maxlength="24" placeholder="Játékosnév"></div></div><div class="actions"><button class="btn" id="join">Csatlakozás</button><button class="btn secondary" id="leave">Kilépés</button></div></div>
+<div id="joinForm"><div class="fields"><div><label for="steamId">Steam64ID</label><input id="steamId" inputmode="numeric" autocomplete="off" maxlength="17" placeholder="Steam64ID" required></div><div><label for="playerName">Játékosnév</label><input id="playerName" autocomplete="off" maxlength="24" placeholder="Játékosnév" required></div></div><div class="actions"><button class="btn" id="join">Csatlakozás</button><button class="btn secondary" id="leave">Kilépés</button></div></div>
 <div class="status" id="message" aria-live="polite"></div></section>
 <section class="panel hidden" id="draftPanel"><div class="queue-head"><h2>Csapatdraft</h2></div><p class="note" id="draftInfo"></p><div class="teams" style="margin-top:12px"><div class="team"><h3>1. CSAPAT</h3><div id="team0"></div></div><div class="team"><h3>2. CSAPAT</h3><div id="team1"></div></div></div><div class="captain"><div class="captain-grid"><div><label for="captainId">Kapitány Steam64ID</label><input id="captainId" inputmode="numeric" placeholder="Steam64ID"></div><div><label for="pickPlayer">Játékos</label><select id="pickPlayer"><option value="">Válassz…</option></select></div></div><button class="btn" id="pick" style="margin-top:9px">Kiválasztás</button></div></section>
 <section class="panel hidden" id="nextPanel"><h2 style="font-size:14px;margin:0">Csapatok elkészültek</h2></section>
 </main>
 <script>
-// Ha a GitHub Pages és az API külön domainen fut, itt add meg a bot 3080-as API HTTPS címét.
-// Példa: window.BEAKO_MIX_API = 'https://api.sajat-domain.hu';
-const API = (window.BEAKO_MIX_API || '').replace(/\/$/, '');
+// A nyilvános HTTPS API-címet telepítéskor kell beállítani.
+// A form mezőinek tartalma NEM kerül elküldésre oldalbetöltéskor vagy frissítéskor.
+window.BEAKO_MIX_API = window.BEAKO_MIX_API || '';
+const API = String(window.BEAKO_MIX_API).replace(/\/$/, '');
 const $ = id => document.getElementById(id);
 let current = null;
-async function request(path, body){if(!API)throw new Error('Hiányzik a BEAKO_MIX_API HTTPS címe.');const response=await fetch(`${API}/api/mix${path}`,{method:body?'POST':'GET',headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined,cache:'no-store'});const raw=await response.text();let data;try{data=JSON.parse(raw)}catch{throw new Error(`A MIX API nem JSON választ adott (HTTP ${response.status}). Ellenőrizd az API címet.`)}if(!response.ok||data.error)throw new Error(data.error||`HTTP ${response.status}`);return data.state||data;}
-function render(state){current=state;$('count').textContent=`${state.queueCount} / ${state.maxPlayers}`;$('progress').style.width=`${state.queueCount/state.maxPlayers*100}%`;$('queuePlayers').innerHTML='';for(const p of state.queue){const el=document.createElement('div');el.className='player';const name=document.createElement('span');name.textContent=p.name;const id=document.createElement('small');id.textContent=p.steamId;el.append(name,id);$('queuePlayers').append(el)}if(!state.queue.length)$('queuePlayers').innerHTML='<p class="note">Üres várólista</p>';$('joinForm').classList.toggle('hidden',state.phase!=='queue');$('draftPanel').classList.toggle('hidden',!state.match||!['draft','veto_pending'].includes(state.phase));$('nextPanel').classList.toggle('hidden',state.phase!=='veto_pending');if(state.match){const m=state.match;$('draftInfo').textContent=m.phase==='draft'?`Következő: ${m.captains[m.currentCaptain].name} · ${m.remaining.length} választható`:'A draft befejeződött.';for(let t=0;t<2;t++){$(`team${t}`).innerHTML='';for(const p of m.teams[t]){const line=document.createElement('p');line.textContent=p.name;$(`team${t}`).append(line)}}$('pickPlayer').innerHTML='<option value="">Válassz…</option>';for(const p of m.remaining){const o=document.createElement('option');o.value=p.steamId;o.textContent=p.name;$('pickPlayer').append(o)}$('pick').disabled=m.phase!=='draft'||!m.remaining.length;}}
-async function refresh(){try{render(await request('',null));if(!$('message').classList.contains('error'))$('message').textContent=''}catch(e){$('message').textContent=e.message;$('message').className='status error'}}
-function message(text,ok=false){$('message').textContent=text;$('message').className='status '+(ok?'success':'error')}
-$('join').addEventListener('click',async()=>{try{const state=await request('/join',{steamId:$('steamId').value,name:$('playerName').value});render(state);message('Csatlakoztál.',true)}catch(e){message(e.message)}});
-$('leave').addEventListener('click',async()=>{try{const state=await request('/leave',{steamId:$('steamId').value});render(state);message('Kiléptél.',true)}catch(e){message(e.message)}});
-$('pick').addEventListener('click',async()=>{try{const state=await request('/pick',{captainSteamId:$('captainId').value,playerSteamId:$('pickPlayer').value});render(state);message('Játékos kiválasztva.',true)}catch(e){message(e.message)}});
-refresh();setInterval(refresh,2500);
+let submitting = false;
+async function request(path, body) {
+  if (!API) throw new Error('A MIX API HTTPS címe még nincs beállítva.');
+  const options = { method: body ? 'POST' : 'GET', cache: 'no-store' };
+  if (body) { options.headers = { 'Content-Type': 'application/json' }; options.body = JSON.stringify(body); }
+  const response = await fetch(`${API}/api/mix${path}`, options);
+  const raw = await response.text();
+  let data;
+  try { data = JSON.parse(raw); }
+  catch { throw new Error(`A MIX API nem JSON választ adott (HTTP ${response.status}).`); }
+  if (!response.ok || data.error) throw new Error(data.error || `HTTP ${response.status}`);
+  return data.state || data;
+}
+function render(state) {
+  current = state;
+  $('count').textContent = `${state.queueCount} / ${state.maxPlayers}`;
+  $('progress').style.width = `${state.queueCount / state.maxPlayers * 100}%`;
+  $('queuePlayers').replaceChildren();
+  for (const player of state.queue) {
+    const el = document.createElement('div'); el.className = 'player';
+    const name = document.createElement('span'); name.textContent = player.name;
+    const id = document.createElement('small'); id.textContent = player.steamId;
+    el.append(name, id); $('queuePlayers').append(el);
+  }
+  if (!state.queue.length) $('queuePlayers').innerHTML = '<p class="note">Üres várólista</p>';
+  $('joinForm').classList.toggle('hidden', state.phase !== 'queue');
+  $('draftPanel').classList.toggle('hidden', !state.match || !['draft','veto_pending'].includes(state.phase));
+  $('nextPanel').classList.toggle('hidden', state.phase !== 'veto_pending');
+  if (state.match) {
+    const match = state.match;
+    $('draftInfo').textContent = match.phase === 'draft' ? `Következő: ${match.captains[match.currentCaptain].name} · ${match.remaining.length} választható` : 'A draft befejeződött.';
+    for (let team = 0; team < 2; team++) {
+      $(`team${team}`).replaceChildren();
+      for (const player of match.teams[team]) { const line = document.createElement('p'); line.textContent = player.name; $(`team${team}`).append(line); }
+    }
+    $('pickPlayer').innerHTML = '<option value="">Válassz…</option>';
+    for (const player of match.remaining) { const option = document.createElement('option'); option.value = player.steamId; option.textContent = player.name; $('pickPlayer').append(option); }
+    $('pick').disabled = match.phase !== 'draft' || !match.remaining.length;
+  }
+}
+async function refresh() {
+  try { render(await request('', null)); if (!$('message').classList.contains('error')) $('message').textContent = ''; }
+  catch (error) { $('message').textContent = error.message; $('message').className = 'status error'; }
+}
+function message(text, ok = false) { $('message').textContent = text; $('message').className = 'status ' + (ok ? 'success' : 'error'); }
+$('join').addEventListener('click', async () => {
+  // Ez az egyetlen hely, ahol a böngésző a beírt Steam64ID-t és nevet elküldi a Beakónak.
+  if (submitting) return;
+  const steamId = $('steamId').value.trim();
+  const name = $('playerName').value.normalize('NFKC').trim().replace(/\s+/gu, ' ');
+  if (!/^\d{17}$/.test(steamId)) return message('A Steam64ID pontosan 17 számjegyből álljon.');
+  if (name.length < 2 || name.length > 24) return message('A játékosnév 2–24 karakter legyen.');
+  submitting = true; $('join').disabled = true;
+  try {
+    const state = await request('/join', { steamId, name });
+    render(state); message('Sikeresen csatlakoztál a MIX várólistához.', true);
+  } catch (error) { message(error.message); }
+  finally { submitting = false; $('join').disabled = false; }
+});
+$('leave').addEventListener('click', async () => {
+  const steamId = $('steamId').value.trim();
+  if (!/^\d{17}$/.test(steamId)) return message('A kilépéshez add meg a 17 számjegyű Steam64ID-t.');
+  try { render(await request('/leave', { steamId })); message('Kiléptél a várólistából.', true); }
+  catch (error) { message(error.message); }
+});
+$('pick').addEventListener('click', async () => {
+  try { render(await request('/pick', { captainSteamId: $('captainId').value.trim(), playerSteamId: $('pickPlayer').value })); message('Játékos kiválasztva.', true); }
+  catch (error) { message(error.message); }
+});
+// Ez csak a nyilvános várólista állapotát kéri le; a beírt mezőkhöz nem nyúl és azokat nem küldi el.
+refresh();
+setInterval(refresh, 5000);
 </script></body></html>
