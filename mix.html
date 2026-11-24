@@ -190,7 +190,7 @@ body{padding:28px 34px 28px 250px}
   </div>
 </div>
 <script>
-const API='/mix/api/mix', PROFILE_KEY='beako_mix_profile_v1';
+const API='https://beako-mix-api.lambertbarath383.workers.dev/mix/api/mix', PROFILE_KEY='beako_mix_profile_v1';
 const $=id=>document.getElementById(id);
 let profile=readProfile(), currentState=null, busy=false, audioContext=null, alarmTimer=null, activeAcceptMatch=null;
 function readProfile(){try{const p=JSON.parse(localStorage.getItem(PROFILE_KEY)||'null');if(p&&/^\d{17}$/.test(p.steamId)&&typeof p.name==='string'&&p.name.length>=2&&p.name.length<=24)return p;}catch{}return null;}
