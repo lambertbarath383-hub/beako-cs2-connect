@@ -85,6 +85,11 @@ body{padding:28px 34px 28px 250px}
 .nav .beta{display:none!important}
 
 .spinner{border-radius:50%!important}
+
+.queue-indicator{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;color:#aebbd3;font-size:12px;font-weight:500;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.queue-indicator-icon{width:13px;height:13px;border:1.5px dashed #aebbd3;border-radius:50%!important;display:inline-block;opacity:.9}
+.search-time{font-variant-numeric:tabular-nums;letter-spacing:.08em}
+
 </style>
 </head>
 <body>
@@ -132,10 +137,8 @@ body{padding:28px 34px 28px 250px}
       <div class="player-name" id="savedName">Player</div>
       <div class="steam" id="savedSteam"></div>
       <div class="divider"></div>
-      <div class="queue-label">PLAYERS IN QUEUE</div>
-      <div class="queue-count" id="queueCount">0 / 10</div>
-      <div class="bar"><i id="queueProgress"></i></div>
       <button class="btn play" id="playButton">PLAY</button>
+      <div class="queue-indicator" id="queueIndicator"><span class="queue-indicator-icon"></span><span id="queueCount">0 in queue</span></div>
       <div class="status" id="playStatus" aria-live="polite"></div>
     </div>
   </div>
@@ -226,10 +229,20 @@ function renderAcceptance(state){
 }
 function render(state){
  const oldPhase=currentState?.phase;currentState=state;
- $('queueCount').textContent=`${state.queueCount} / ${state.maxPlayers}`;$('queueProgress').style.width=`${state.queueCount/state.maxPlayers*100}%`;
+ $('queueCount').textContent=`${state.queueCount} in queue`;
  const inQueue=!!profile&&(state.queue||[]).some(p=>p.steamId===profile.steamId);
- if(inQueue){$('playButton').classList.add('searching');$('playButton').innerHTML='<span class="spinner"></span>SEARCHING';$('playButton').title='Click again to cancel matchmaking';$('playButton').disabled=false;status('');}
- else{$('playButton').classList.remove('searching');$('playButton').textContent='PLAY';$('playButton').title='Start matchmaking';$('playButton').disabled=state.phase!=='queue';status('');}
+ if(inQueue){
+   let started=Number(localStorage.getItem(SEARCH_STARTED_KEY)||0);
+   if(!started){started=Date.now();localStorage.setItem(SEARCH_STARTED_KEY,String(started));}
+   const elapsed=Math.max(0,Math.floor((Date.now()-started)/1000));
+   const mm=String(Math.floor(elapsed/60)).padStart(2,'0'),ss=String(elapsed%60).padStart(2,'0');
+   $('playButton').classList.add('searching');
+   $('playButton').innerHTML=`<span class="spinner"></span><span class="search-time">${mm}:${ss}</span>`;
+   $('playButton').title='Click again to cancel matchmaking';$('playButton').disabled=false;status('');
+ }else{
+   localStorage.removeItem(SEARCH_STARTED_KEY);
+   $('playButton').classList.remove('searching');$('playButton').textContent='PLAY';$('playButton').title='Start matchmaking';$('playButton').disabled=state.phase!=='queue';status('');
+ }
  renderAcceptance(state);
 }
 async function refresh(){try{const state=await api();render(state);}catch(e){if(profile)status(e.message,'error');}}
