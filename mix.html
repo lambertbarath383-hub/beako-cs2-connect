@@ -77,6 +77,13 @@ body{padding:28px 34px 28px 250px}
  .profile-page{padding:22px 16px}
 }
 
+
+/* V5 visual cleanup: square geometry and no duplicate helper copy */
+*,*::before,*::after{border-radius:0!important}
+.hero{display:none!important}
+.status:empty{display:none}
+.nav .beta{display:none!important}
+
 </style>
 </head>
 <body>
@@ -88,11 +95,11 @@ body{padding:28px 34px 28px 250px}
     <button type="button" data-view="profile"><span class="ico">◉</span><span class="nav-label">PROFILE</span></button>
     <button type="button" class="active" data-view="matchmaking"><span class="ico">⌁</span><span class="nav-label">MATCHMAKING</span></button>
     <button type="button" data-view="rules"><span class="ico">▤</span><span class="nav-label">RULES</span></button>
-    <button type="button" data-view="leaderboard"><span class="ico">♛</span><span class="nav-label">LEADERBOARD</span><span class="beta">BETA</span></button>
+    <button type="button" data-view="leaderboard"><span class="ico">♛</span><span class="nav-label">LEADERBOARD</span></button>
   </nav>
 </aside>
 <section class="content">
-<header class="hero"><div class="eyebrow">CS2 · 5V5 MATCHMAKING</div><h1 id="pageTitle">MATCHMAKING</h1><p id="pageSubtitle">Find your match.</p></header>
+
 
 <section class="view" id="view-profile">
   <div class="panel profile-page">
@@ -128,7 +135,7 @@ body{padding:28px 34px 28px 250px}
       <div class="queue-count" id="queueCount">0 / 10</div>
       <div class="bar"><i id="queueProgress"></i></div>
       <button class="btn play" id="playButton">PLAY</button>
-      <div class="status" id="playStatus" aria-live="polite">Click PLAY to find a match.</div>
+      <div class="status" id="playStatus" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -188,8 +195,7 @@ function status(text,kind=''){$('playStatus').textContent=text;$('playStatus').c
 function activateView(name){
  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===name));
  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));
- const titles={profile:['PLAYER PROFILE','Your Beako MIX identity.'],matchmaking:['MATCHMAKING','Find your match.'],rules:['RULES','Play fair.'],leaderboard:['LEADERBOARD','Player rankings are coming soon.']};
- $('pageTitle').textContent=titles[name][0];$('pageSubtitle').textContent=titles[name][1];
+
 }
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>activateView(b.dataset.view)));
 function openProfile(){ $('steamId').value=profile?.steamId||'';$('playerName').value=profile?.name||'';$('profileStatus').textContent='';$('profileTitle').textContent=profile?'EDIT PROFILE':'CREATE PLAYER PROFILE';$('saveProfile').textContent=profile?'SAVE CHANGES':'SAVE PROFILE';$('profileModal').classList.add('show');}
@@ -221,8 +227,8 @@ function render(state){
  const oldPhase=currentState?.phase;currentState=state;
  $('queueCount').textContent=`${state.queueCount} / ${state.maxPlayers}`;$('queueProgress').style.width=`${state.queueCount/state.maxPlayers*100}%`;
  const inQueue=!!profile&&(state.queue||[]).some(p=>p.steamId===profile.steamId);
- if(inQueue){$('playButton').classList.add('searching');$('playButton').innerHTML='<span class="spinner"></span>SEARCHING';$('playButton').title='Click again to cancel matchmaking';$('playButton').disabled=false;status(state.phase==='accepting'?'Match found — accept the invitation.':'Searching for players. Click SEARCHING to cancel.','good');}
- else{$('playButton').classList.remove('searching');$('playButton').textContent='PLAY';$('playButton').title='Start matchmaking';$('playButton').disabled=state.phase!=='queue';if(state.phase==='queue'&&oldPhase!=='queue')status('Click PLAY to find a match.');else if(state.phase!=='queue')status('A match is in progress. Please wait.');}
+ if(inQueue){$('playButton').classList.add('searching');$('playButton').innerHTML='<span class="spinner"></span>SEARCHING';$('playButton').title='Click again to cancel matchmaking';$('playButton').disabled=false;status('');}
+ else{$('playButton').classList.remove('searching');$('playButton').textContent='PLAY';$('playButton').title='Start matchmaking';$('playButton').disabled=state.phase!=='queue';status('');}
  renderAcceptance(state);
 }
 async function refresh(){try{const state=await api();render(state);}catch(e){if(profile)status(e.message,'error');}}
@@ -233,11 +239,11 @@ $('saveProfile').addEventListener('click',()=>{
  if(!/^\d{17}$/.test(steamId)){$('profileStatus').textContent='Steam64ID must contain exactly 17 digits.';$('profileStatus').className='status error';return;}
  if(name.length<2||name.length>24){$('profileStatus').textContent='Player name must be 2–24 characters.';$('profileStatus').className='status error';return;}
  if(profile&&currentState?.queue?.some(p=>p.steamId===profile.steamId)&&(steamId!==profile.steamId||name!==profile.name)){$('profileStatus').textContent='Leave matchmaking before changing your profile.';$('profileStatus').className='status error';return;}
- setProfile({steamId,name});updateProfileUI();closeProfile();status('Profile saved in this browser.','good');unlockAudio();refresh();
+ setProfile({steamId,name});updateProfileUI();closeProfile();status('');unlockAudio();refresh();
 });
 $('playButton').addEventListener('click',async()=>{
  if(!profile){openProfile();return;}if(busy)return;busy=true;unlockAudio();$('playButton').disabled=true;
- try{const inQueue=!!currentState?.queue?.some(p=>p.steamId===profile.steamId);const state=await api(inQueue?'/leave':'/join',inQueue?{steamId:profile.steamId}:{steamId:profile.steamId,name:profile.name});render(state);if(inQueue)status('Search cancelled.','');}
+ try{const inQueue=!!currentState?.queue?.some(p=>p.steamId===profile.steamId);const state=await api(inQueue?'/leave':'/join',inQueue?{steamId:profile.steamId}:{steamId:profile.steamId,name:profile.name});render(state);if(inQueue)status('');}
  catch(e){status(e.message,'error');}
  finally{busy=false;if(currentState)render(currentState);}
 });
