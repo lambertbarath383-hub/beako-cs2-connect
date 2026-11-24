@@ -4,105 +4,37 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1020">
 <title>Beako MIX</title>
 <style>
-:root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:#090d1b;color:#f4f6ff;--panel:#11182b;--line:#293452;--muted:#8e9bb9;--accent:#8768f5;--green:#57d6a0;--red:#ff8291}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,rgba(87,68,170,.19),transparent 48%),linear-gradient(145deg,#080b18,#101832);padding:26px 14px}
-.wrap{width:min(760px,100%);margin:0 auto}.top{display:flex;justify-content:flex-end;align-items:center;margin-bottom:28px}.top a{color:#cbd2ed;text-decoration:none;border:1px solid var(--line);padding:8px 12px;font-size:12px}.top a:hover{border-color:#8572df;color:white}
-.hero{text-align:center;margin:0 0 24px}.hero h1{font-size:clamp(30px,5vw,42px);letter-spacing:-.05em;margin:0;font-weight:850}
-.panel{background:rgba(17,24,43,.88);border:1px solid var(--line);padding:20px;margin:0 0 14px;box-shadow:0 16px 44px rgba(0,0,0,.2)}
-.queue-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.queue-head h2{font-size:15px;margin:0;font-weight:750}.count{font-size:23px;font-weight:900;color:#c2b6ff;font-variant-numeric:tabular-nums}
-.bar{height:6px;background:#080d1b;overflow:hidden;margin:12px 0 15px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7357e8,#b49cff);transition:width .2s}
-.players{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.player{background:#0c1325;border:1px solid #222e4b;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;gap:10px;min-width:0;font-size:12px}.player span{overflow-wrap:anywhere}.player small{color:var(--muted);font-size:10px;overflow-wrap:anywhere;text-align:right}.note{color:var(--muted);font-size:12px;margin:0}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.fields label,.captain label{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}.fields input,.captain input,.captain select{width:100%;background:#090f20;border:1px solid #303d5d;padding:12px;color:white;font:13px inherit;outline:none;border-radius:0}.fields input:focus,.captain input:focus,.captain select:focus{border-color:#927cff}
-.actions{display:flex;gap:8px;margin-top:10px}.btn{border:1px solid transparent;padding:11px 15px;font-weight:750;font-size:12px;cursor:pointer;color:white;background:var(--accent)}.btn.secondary{background:#202b44;border-color:#344363}.btn:disabled{opacity:.4;cursor:not-allowed}.status{font-size:11px;min-height:15px;margin-top:10px;color:var(--muted)}.error{color:var(--red)}.success{color:var(--green)}.hidden{display:none!important}
-.teams{display:grid;grid-template-columns:1fr 1fr;gap:10px}.team{background:#0c1325;border:1px solid #222e4b;padding:12px}.team h3{font-size:12px;color:#c8bcff;margin:0 0 8px}.team p{font-size:12px;margin:6px 0}.captain{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.captain-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-@media(max-width:600px){body{padding:18px 11px}.panel{padding:15px}.fields,.players,.teams,.captain-grid{grid-template-columns:1fr}.actions{flex-direction:column}.btn{width:100%}.top{margin-bottom:20px}}
+:root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:#080c19;color:#f4f6ff;--panel:#111a2d;--line:#283653;--muted:#91a0bf;--accent:#8768f5;--green:#57d6a0;--red:#ff8291}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,rgba(116,87,232,.25),transparent 48%),linear-gradient(145deg,#080b18,#101a32);padding:24px 16px}.wrap{width:min(920px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin:0 0 28px}.brand{font-size:13px;font-weight:900;letter-spacing:.16em;color:#b9adff}.top a,.text-btn{color:#cbd2ed;text-decoration:none;border:1px solid var(--line);padding:9px 13px;font-size:12px;background:transparent;cursor:pointer}.top a:hover,.text-btn:hover{border-color:#8572df;color:white}.hero{text-align:center;margin:0 0 26px}.eyebrow{font-size:10px;letter-spacing:.22em;color:#a99aff;font-weight:800}.hero h1{font-size:clamp(36px,6vw,54px);letter-spacing:-.06em;margin:5px 0;font-weight:950}.hero p{margin:0;color:var(--muted);font-size:13px}.layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(250px,.8fr);gap:16px;align-items:start}.panel{background:linear-gradient(145deg,rgba(19,29,50,.97),rgba(13,20,37,.97));border:1px solid var(--line);padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.22);border-radius:12px;margin-bottom:14px}.panel h2{font-size:15px;margin:0;font-weight:800}.muted{color:var(--muted);font-size:12px;line-height:1.6}.queue-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.count{font-size:26px;font-weight:950;color:#c8bcff;font-variant-numeric:tabular-nums}.bar{height:7px;background:#080d1b;overflow:hidden;margin:14px 0 17px;border-radius:20px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7357e8,#b49cff);transition:width .25s;border-radius:20px}.players{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.player{background:#0b1325;border:1px solid #24314e;padding:11px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;min-width:0;font-size:12px;border-radius:7px}.player span{overflow-wrap:anywhere;font-weight:700}.player small{color:var(--muted);font-size:10px;overflow-wrap:anywhere;text-align:right}.empty{padding:12px;border:1px dashed #2b3957;border-radius:8px}.field{margin-top:14px}.field label{display:block;color:#aab6d0;font-size:11px;margin-bottom:7px;font-weight:700}.field input,.captain input,.captain select{width:100%;background:#090f20;border:1px solid #303d5d;padding:13px 14px;color:white;font:inherit;font-size:13px;outline:none;border-radius:7px}.field input:focus,.captain input:focus,.captain select:focus{border-color:#927cff;box-shadow:0 0 0 3px rgba(135,104,245,.13)}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:1px solid transparent;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;color:white;background:linear-gradient(135deg,#8061ed,#9a7cff);border-radius:7px}.btn.secondary{background:#202d48;border-color:#344363}.btn.danger{background:#351d2c;border-color:#633247;color:#ffc4ce}.btn:disabled{opacity:.4;cursor:not-allowed}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.status{font-size:12px;min-height:18px;margin-top:12px;color:var(--muted)}.error{color:var(--red)}.success{color:var(--green)}.hidden{display:none!important}.profile{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b1427;border:1px solid #2c3b5d;padding:13px;border-radius:8px;margin-top:15px}.profile strong{display:block;font-size:13px}.profile small{display:block;color:var(--muted);font-size:10px;margin-top:4px;overflow-wrap:anywhere}.side-title{font-size:11px;letter-spacing:.12em;color:#a99aff;font-weight:900;margin-bottom:10px}.side-stat{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #26324b;font-size:12px}.side-stat:last-child{border:0}.side-stat span{color:var(--muted)}.teams{display:grid;grid-template-columns:1fr 1fr;gap:10px}.team{background:#0b1325;border:1px solid #263653;padding:13px;border-radius:8px}.team h3{font-size:12px;color:#c8bcff;margin:0 0 8px}.team p{font-size:12px;margin:7px 0}.captain{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}.captain-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.captain label{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}.foot{text-align:center;color:#697795;font-size:10px;padding:12px}
+@media(max-width:700px){body{padding:17px 12px}.layout{grid-template-columns:1fr}.panel{padding:17px}.fields,.players,.teams,.captain-grid{grid-template-columns:1fr}.top{margin-bottom:22px}.actions .btn{flex:1}.profile{align-items:flex-start;flex-direction:column}}
 </style></head>
 <body><main class="wrap">
-<header class="top"><a href="/">← Főoldal</a></header>
-<section class="hero"><h1>MIX</h1></section>
-<section class="panel"><div class="queue-head"><h2>Várólista</h2><div class="count" id="count">0 / 10</div></div><div class="bar"><i id="progress"></i></div>
-<div id="queuePlayers" class="players"><p class="note">Betöltés…</p></div>
-<div id="joinForm"><div class="fields"><div><label for="steamId">Steam64ID</label><input id="steamId" inputmode="numeric" autocomplete="off" maxlength="17" placeholder="Steam64ID" required></div><div><label for="playerName">Játékosnév</label><input id="playerName" autocomplete="off" maxlength="24" placeholder="Játékosnév" required></div></div><div class="actions"><button class="btn" id="join">Csatlakozás</button><button class="btn secondary" id="leave">Kilépés</button></div></div>
-<div class="status" id="message" aria-live="polite"></div></section>
-<section class="panel hidden" id="draftPanel"><div class="queue-head"><h2>Csapatdraft</h2></div><p class="note" id="draftInfo"></p><div class="teams" style="margin-top:12px"><div class="team"><h3>1. CSAPAT</h3><div id="team0"></div></div><div class="team"><h3>2. CSAPAT</h3><div id="team1"></div></div></div><div class="captain"><div class="captain-grid"><div><label for="captainId">Kapitány Steam64ID</label><input id="captainId" inputmode="numeric" placeholder="Steam64ID"></div><div><label for="pickPlayer">Játékos</label><select id="pickPlayer"><option value="">Válassz…</option></select></div></div><button class="btn" id="pick" style="margin-top:9px">Kiválasztás</button></div></section>
-<section class="panel hidden" id="nextPanel"><h2 style="font-size:14px;margin:0">Csapatok elkészültek</h2></section>
-</main>
+<header class="top"><div class="brand">BEAKO <span style="color:#7e68e8">/</span> MIX</div><a href="https://connect.szamarszervers.eu/">← Főoldal</a></header>
+<section class="hero"><div class="eyebrow">CS2 • 5V5 MATCHMAKING</div><h1>MIX</h1><p>Csatlakozz a várólistához, és állítsatok össze egy mérkőzést.</p></section>
+<div class="layout"><div>
+<section class="panel" id="profilePanel"><div class="side-title">JÁTÉKOS AZONOSÍTÁS</div><h2 id="profileHeading">Első belépés</h2><p class="muted" id="profileHint">Add meg egyszer a Steam64ID-det és a játékosnevedet. A böngésződ megjegyzi, így legközelebb nem kell újra beírnod.</p>
+<div class="fields"><div class="field"><label for="steamId">STEAM64ID</label><input id="steamId" inputmode="numeric" autocomplete="off" maxlength="17" placeholder="17 számjegyű SteamID"></div><div class="field"><label for="playerName">JÁTÉKOSNÉV</label><input id="playerName" autocomplete="nickname" maxlength="24" placeholder="A játékban használt neved"></div></div>
+<div class="actions"><button class="btn" id="saveProfile">Profil mentése</button><button class="text-btn hidden" id="cancelEdit">Mégse</button></div><div class="status" id="profileMessage" aria-live="polite"></div></section>
+<section class="panel hidden" id="queuePanel"><div class="queue-head"><div><div class="side-title">AKTUÁLIS ÁLLAPOT</div><h2>Várólista</h2></div><div class="count" id="count">0 / 10</div></div><div class="bar"><i id="progress"></i></div><div id="queuePlayers" class="players"><p class="muted">Betöltés…</p></div>
+<div class="profile"><div><strong id="savedName">Játékos</strong><small id="savedId"></small></div><button class="text-btn" id="editProfile">Profil módosítása</button></div>
+<div class="actions"><button class="btn" id="join">Csatlakozás a várólistához</button><button class="btn danger" id="leave">Kilépés</button></div><div class="status" id="message" aria-live="polite"></div></section>
+<section class="panel hidden" id="draftPanel"><div class="queue-head"><h2>Csapatdraft</h2></div><p class="muted" id="draftInfo"></p><div class="teams" style="margin-top:12px"><div class="team"><h3>1. CSAPAT</h3><div id="team0"></div></div><div class="team"><h3>2. CSAPAT</h3><div id="team1"></div></div></div><div class="captain"><div class="captain-grid"><div><label for="captainId">Kapitány Steam64ID</label><input id="captainId" inputmode="numeric" placeholder="Steam64ID"></div><div><label for="pickPlayer">Játékos</label><select id="pickPlayer"><option value="">Válassz…</option></select></div></div><button class="btn" id="pick" style="margin-top:10px">Kiválasztás</button></div></section>
+</div><aside><section class="panel"><div class="side-title">HOGYAN MŰKÖDIK?</div><div class="side-stat"><b>01 · Azonosítás</b><span>Egyszeri profil</span></div><div class="side-stat"><b>02 · Várakozás</b><span>10 játékos</span></div><div class="side-stat"><b>03 · Draft</b><span>2 kapitány</span></div><div class="side-stat"><b>04 · Meccs</b><span>5 vs 5</span></div><p class="muted" style="margin:14px 0 0">A Steam64ID és a név ezen a böngészőn kerül mentésre. Nem Steam-bejelentkezés, és nem küldjük el automatikusan az adatokat: csak a várólistához csatlakozáskor.</p></section></aside></div>
+<footer class="foot">BEAKO MIX · COUNTER-STRIKE 2</footer></main>
 <script>
-// A MIX oldal és az API ugyanazon a domainen, a Cloudflare Worker mögött fut.
-// A form mezőinek tartalma NEM kerül elküldésre oldalbetöltéskor vagy frissítéskor.
-const API = '/mix';
-const $ = id => document.getElementById(id);
-let current = null;
-let submitting = false;
-async function request(path, body) {
-  if (!API) throw new Error('A MIX API HTTPS címe még nincs beállítva.');
-  const options = { method: body ? 'POST' : 'GET', cache: 'no-store' };
-  if (body) { options.headers = { 'Content-Type': 'application/json' }; options.body = JSON.stringify(body); }
-  const response = await fetch(`${API}/api/mix${path}`, options);
-  const raw = await response.text();
-  let data;
-  try { data = JSON.parse(raw); }
-  catch { throw new Error(`A MIX API nem JSON választ adott (HTTP ${response.status}).`); }
-  if (!response.ok || data.error) throw new Error(data.error || `HTTP ${response.status}`);
-  return data.state || data;
-}
-function render(state) {
-  current = state;
-  $('count').textContent = `${state.queueCount} / ${state.maxPlayers}`;
-  $('progress').style.width = `${state.queueCount / state.maxPlayers * 100}%`;
-  $('queuePlayers').replaceChildren();
-  for (const player of state.queue) {
-    const el = document.createElement('div'); el.className = 'player';
-    const name = document.createElement('span'); name.textContent = player.name;
-    const id = document.createElement('small'); id.textContent = player.steamId;
-    el.append(name, id); $('queuePlayers').append(el);
-  }
-  if (!state.queue.length) $('queuePlayers').innerHTML = '<p class="note">Üres várólista</p>';
-  $('joinForm').classList.toggle('hidden', state.phase !== 'queue');
-  $('draftPanel').classList.toggle('hidden', !state.match || !['draft','veto_pending'].includes(state.phase));
-  $('nextPanel').classList.toggle('hidden', state.phase !== 'veto_pending');
-  if (state.match) {
-    const match = state.match;
-    $('draftInfo').textContent = match.phase === 'draft' ? `Következő: ${match.captains[match.currentCaptain].name} · ${match.remaining.length} választható` : 'A draft befejeződött.';
-    for (let team = 0; team < 2; team++) {
-      $(`team${team}`).replaceChildren();
-      for (const player of match.teams[team]) { const line = document.createElement('p'); line.textContent = player.name; $(`team${team}`).append(line); }
-    }
-    $('pickPlayer').innerHTML = '<option value="">Válassz…</option>';
-    for (const player of match.remaining) { const option = document.createElement('option'); option.value = player.steamId; option.textContent = player.name; $('pickPlayer').append(option); }
-    $('pick').disabled = match.phase !== 'draft' || !match.remaining.length;
-  }
-}
-async function refresh() {
-  try { render(await request('', null)); if (!$('message').classList.contains('error')) $('message').textContent = ''; }
-  catch (error) { $('message').textContent = error.message; $('message').className = 'status error'; }
-}
-function message(text, ok = false) { $('message').textContent = text; $('message').className = 'status ' + (ok ? 'success' : 'error'); }
-$('join').addEventListener('click', async () => {
-  // Ez az egyetlen hely, ahol a böngésző a beírt Steam64ID-t és nevet elküldi a Beakónak.
-  if (submitting) return;
-  const steamId = $('steamId').value.trim();
-  const name = $('playerName').value.normalize('NFKC').trim().replace(/\s+/gu, ' ');
-  if (!/^\d{17}$/.test(steamId)) return message('A Steam64ID pontosan 17 számjegyből álljon.');
-  if (name.length < 2 || name.length > 24) return message('A játékosnév 2–24 karakter legyen.');
-  submitting = true; $('join').disabled = true;
-  try {
-    const state = await request('/join', { steamId, name });
-    render(state); message('Sikeresen csatlakoztál a MIX várólistához.', true);
-  } catch (error) { message(error.message); }
-  finally { submitting = false; $('join').disabled = false; }
-});
-$('leave').addEventListener('click', async () => {
-  const steamId = $('steamId').value.trim();
-  if (!/^\d{17}$/.test(steamId)) return message('A kilépéshez add meg a 17 számjegyű Steam64ID-t.');
-  try { render(await request('/leave', { steamId })); message('Kiléptél a várólistából.', true); }
-  catch (error) { message(error.message); }
-});
-$('pick').addEventListener('click', async () => {
-  try { render(await request('/pick', { captainSteamId: $('captainId').value.trim(), playerSteamId: $('pickPlayer').value })); message('Játékos kiválasztva.', true); }
-  catch (error) { message(error.message); }
-});
-// Ez csak a nyilvános várólista állapotát kéri le; a beírt mezőkhöz nem nyúl és azokat nem küldi el.
-refresh();
-setInterval(refresh, 5000);
+const API='/mix';const PROFILE_KEY='beako_mix_profile_v1';const $=id=>document.getElementById(id);let profile=null;let current=null;let submitting=false;let editing=false;
+function readProfile(){try{const p=JSON.parse(localStorage.getItem(PROFILE_KEY)||'null');if(p&&/^\d{17}$/.test(p.steamId)&&typeof p.name==='string'&&p.name.length>=2&&p.name.length<=24)return p}catch{}return null}
+function setProfile(p){profile=p;try{if(p)localStorage.setItem(PROFILE_KEY,JSON.stringify(p));else localStorage.removeItem(PROFILE_KEY)}catch{profile=p}}
+function showProfile(edit=false){editing=edit;$('profilePanel').classList.remove('hidden');$('queuePanel').classList.add('hidden');$('profileHeading').textContent=edit?'Profil módosítása':'Első belépés';$('profileHint').textContent=edit?'Módosítsd az adataidat, majd mentsd el.':'Add meg egyszer a Steam64ID-det és a játékosnevedet. A böngésződ megjegyzi, így legközelebb nem kell újra beírnod.';$('steamId').value=profile?.steamId||'';$('playerName').value=profile?.name||'';$('saveProfile').textContent=edit?'Változtatások mentése':'Profil mentése';$('cancelEdit').classList.toggle('hidden',!edit);$('profileMessage').textContent=''}
+function showQueue(){if(!profile){showProfile();return}$('profilePanel').classList.add('hidden');$('queuePanel').classList.remove('hidden');$('savedName').textContent=profile.name;$('savedId').textContent=profile.steamId}
+async function request(path,body){const options={method:body?'POST':'GET',cache:'no-store'};if(body){options.headers={'Content-Type':'application/json'};options.body=JSON.stringify(body)}const response=await fetch(`${API}/api/mix${path}`,options);const raw=await response.text();let data;try{data=JSON.parse(raw)}catch{throw new Error(`A MIX API nem JSON választ adott (HTTP ${response.status}).`)}if(!response.ok||data.error)throw new Error(data.error||`HTTP ${response.status}`);return data.state||data}
+function render(state){current=state;$('count').textContent=`${state.queueCount} / ${state.maxPlayers}`;$('progress').style.width=`${state.queueCount/state.maxPlayers*100}%`;$('queuePlayers').replaceChildren();for(const p of state.queue){const el=document.createElement('div');el.className='player';const name=document.createElement('span');name.textContent=p.name;const id=document.createElement('small');id.textContent=p.steamId;el.append(name,id);$('queuePlayers').append(el)}if(!state.queue.length)$('queuePlayers').innerHTML='<p class="muted empty">Jelenleg üres a várólista. Legyél te az első!</p>';$('draftPanel').classList.toggle('hidden',!state.match||!['draft','veto_pending'].includes(state.phase));if(state.match){const m=state.match;$('draftInfo').textContent=m.phase==='draft'?`Következő kapitány: ${m.captains[m.currentCaptain].name} · ${m.remaining.length} választható játékos`:'A draft befejeződött.';for(let t=0;t<2;t++){$(`team${t}`).replaceChildren();for(const p of m.teams[t]){const line=document.createElement('p');line.textContent=p.name;$(`team${t}`).append(line)}}$('pickPlayer').innerHTML='<option value="">Válassz…</option>';for(const p of m.remaining){const o=document.createElement('option');o.value=p.steamId;o.textContent=p.name;$('pickPlayer').append(o)}$('pick').disabled=m.phase!=='draft'||!m.remaining.length}const inQueue=!!profile&&state.queue.some(p=>String(p.steamId)===profile.steamId);$('join').classList.toggle('hidden',inQueue||state.phase!=='queue');$('leave').classList.toggle('hidden',!inQueue)}
+async function refresh(){try{const state=await request('',null);render(state);if(!$('message').classList.contains('error'))$('message').textContent=''}catch(e){$('message').textContent=e.message;$('message').className='status error'}}
+function message(t,ok=false){$('message').textContent=t;$('message').className='status '+(ok?'success':'error')}
+$('saveProfile').addEventListener('click',()=>{const steamId=$('steamId').value.trim();const name=$('playerName').value.normalize('NFKC').trim().replace(/\s+/gu,' ');if(!/^\d{17}$/.test(steamId)){$('profileMessage').textContent='A Steam64ID pontosan 17 számjegy legyen.';$('profileMessage').className='status error';return}if(name.length<2||name.length>24){$('profileMessage').textContent='A játékosnév 2–24 karakter legyen.';$('profileMessage').className='status error';return}if(profile&&current?.queue?.some(p=>String(p.steamId)===profile.steamId)&&(steamId!==profile.steamId||name!==profile.name)){$('profileMessage').textContent='Előbb lépj ki a várólistából, és utána módosítsd a profilodat.';$('profileMessage').className='status error';return}setProfile({steamId,name});showQueue();$('message').textContent='Profil elmentve ezen a böngészőn.';$('message').className='status success';refresh()});
+$('editProfile').addEventListener('click',()=>showProfile(true));$('cancelEdit').addEventListener('click',showQueue);
+$('join').addEventListener('click',async()=>{if(!profile||submitting)return;submitting=true;$('join').disabled=true;try{render(await request('/join',{steamId:profile.steamId,name:profile.name}));message('Sikeresen csatlakoztál a MIX várólistához.',true)}catch(e){message(e.message)}finally{submitting=false;$('join').disabled=false}});
+$('leave').addEventListener('click',async()=>{if(!profile)return;try{render(await request('/leave',{steamId:profile.steamId}));message('Kiléptél a várólistából.',true)}catch(e){message(e.message)}});
+$('pick').addEventListener('click',async()=>{try{render(await request('/pick',{captainSteamId:$('captainId').value.trim(),playerSteamId:$('pickPlayer').value}));message('Játékos kiválasztva.',true)}catch(e){message(e.message)}});
+profile=readProfile();if(profile)showQueue();else showProfile();refresh();setInterval(refresh,5000);
 </script></body></html>
