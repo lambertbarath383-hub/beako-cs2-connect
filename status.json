@@ -1,0 +1,21 @@
+{
+  "updatedAt": "2026-11-28T20:25:17.356Z",
+  "main": {
+    "online": true,
+    "busy": false,
+    "players": 2,
+    "maxPlayers": 16,
+    "map": "de_inferno",
+    "updatedAt": "2026-11-28T20:25:17.356Z",
+    "playerEventAt": "2026-11-28T20:23:37.366Z"
+  },
+  "secondary": {
+    "online": true,
+    "busy": false,
+    "players": 1,
+    "maxPlayers": 16,
+    "map": "de_dust2",
+    "updatedAt": "2026-11-28T20:25:17.332Z",
+    "playerEventAt": "2026-11-28T20:24:07.605Z"
+  }
+}
